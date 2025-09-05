@@ -17,6 +17,8 @@
         font-style: normal;
       }
 
+      :root{ --navH: 80px; }
+
       body {
         font-family: 'AnotherTag', sans-serif;
         margin: 0;
@@ -54,6 +56,7 @@
         font-size: 1.1em;
         letter-spacing: 1px;
         transition: color 0.3s;
+        position: relative;
       }
 
       #topnav a.active {
@@ -86,24 +89,16 @@
         height: 100vh;
       }
 
+      /* En móvil, suavizamos el snap para evitar saltos bruscos */
+      @media (max-width: 768px) {
+        #wrapper { scroll-snap-type: y proximity; }
+      }
+
       #wrapper > section {
         scroll-snap-align: start;
         min-height: 100vh;
-        padding: 100px 20px 20px; /* espacio en PC */
-        scroll-margin-top: 80px; /* para no tapar con la barra */
-      }
-
-      /* Ajuste en móvil: menos hueco arriba */
-      @media (max-width: 768px) {
-        #wrapper > section {
-          padding: 70px 15px 15px;
-        }
-        #two {
-          padding-top: 60px !important;
-        }
-        #two .actions {
-          margin-bottom: 40px; /* asegura que el botón no se corte */
-        }
+        padding: calc(var(--navH) + 20px) 20px 20px; /* espacio superior = altura barra + margen */
+        scroll-margin-top: var(--navH); /* para no tapar con la barra */
       }
 
       /* Colores */
@@ -206,36 +201,47 @@
         background: #e04848;
       }
 
-      /* Ajuste formulario */
-      #two textarea {
-        min-height: auto !important;
-        max-height: 100px;
-        resize: vertical;
-      }
-
+      /* ===== Ajustes específicos para la sección #two (Pedidos) ===== */
+      /* 1) Centrar verticalmente el contenido para que nada quede "arriba vacío" */
       #two .inner {
+        min-height: calc(100vh - (var(--navH) + 40px));
         display: flex;
         flex-direction: column;
         justify-content: center;
-        min-height: calc(100vh - 120px); /* resta un poco por la barra superior */
-}
+      }
 
+      /* 2) Compactar el formulario para que quepa todo en móvil */
+      #two .fields { row-gap: 10px; }
+      #two .field.half input { height: 40px; }
+      #two textarea { min-height: 70px; max-height: 90px; resize: vertical; }
+
+      /* 3) Asegurar que el botón siempre se vea y no se corte */
+      #two .actions {
+        margin-top: 8px;
+        margin-bottom: 24px;
+      }
       #two .button.submit {
-        font-family: 'AnotherTag', sans-serif; /* misma tipografía */
+        font-family: 'AnotherTag', sans-serif;
         display: block;
         width: 100%;
-        max-width: 250px;
-        margin: 10px auto 0;
-        padding: 14px;
-        font-size: 1.1em;
+        max-width: 260px;
+        margin: 0 auto;
+        padding: 12px 16px;
+        font-size: 1.05em;
         background: #ff5a5f;
         border-radius: 8px;
         text-align: center;
         white-space: nowrap;
       }
 
-      #two .button.submit:hover {
-        background: #e04848;
+      /* En móviles, aún más compacto */
+      @media (max-width: 768px) {
+        #two .inner {
+          min-height: calc(100vh - (var(--navH) + 20px));
+        }
+        #two { padding-top: calc(var(--navH) + 10px) !important; }
+        #two .fields { row-gap: 8px; }
+        #two textarea { max-height: 80px; }
       }
 
       /* Quitar puntitos del botón catálogo inicio */
@@ -265,6 +271,9 @@
           <h1>Prod Ela</h1>
           <p>Página oficial de compra de beats</p>
           <b><img src="assets/images/IguanaoNoFondo.png"></b>
+          <div class="actions">
+            <a href="#one" class="button scrolly">Catálogo</a>
+          </div>
         </div>
       </section>
 
@@ -347,17 +356,27 @@
       const sections = document.querySelectorAll("#wrapper > section");
       const navLinks = document.querySelectorAll("#topnav a");
 
+      // Marcar activo según scroll del wrapper
       function setActiveLink() {
         let index = sections.length;
         while (--index && wrapper.scrollTop + 200 < sections[index].offsetTop) {}
         navLinks.forEach(link => link.classList.remove("active"));
         navLinks[index].classList.add("active");
       }
-
-      // Detecta scroll en el wrapper (no en window)
       wrapper.addEventListener("scroll", setActiveLink);
 
-      // Detecta clic en los enlaces
+      // Navegación: asegurar scroll dentro del wrapper y no en window
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener("click", e => {
+          const target = document.querySelector(a.getAttribute("href"));
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
+      });
+
+      // Click en barra: marcar activo al instante
       navLinks.forEach(link => {
         link.addEventListener("click", function () {
           navLinks.forEach(l => l.classList.remove("active"));
@@ -365,7 +384,6 @@
         });
       });
 
-      // Estado inicial
       setActiveLink();
     </script>
   </body>
