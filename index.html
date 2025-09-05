@@ -1,373 +1,301 @@
 <!DOCTYPE HTML>
-<!--
-	Hyperspace by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
-	<head>
-		<title>BUY BEATS</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-          <link rel="icon" type="image/jpeg" href="assets/images/Iguanao.jpg">
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-        <style>
-            @font-face {
-  font-family: 'AnotherTag';
-  src: url('assets/webfonts/letra/letra.ttf') format('truetype'),
-       url('assets/webfonts/letra/letra.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-}
-body {
-  font-family: 'AnotherTag', sans-serif;
-}
-  /* Ajustes responsive */
-@media (max-width: 1024px) {
-  #one {
-    padding: 100px 40px;  /* menos padding en tablets */
-  }
+  <head>
+    <title>BUY BEATS</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="icon" type="image/jpeg" href="assets/images/Iguanao.jpg">
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
-  .beat-card {
-    max-width: 90%;       /* que no sea tan ancha */
-    margin: 20px auto;    /* centrada */
-  }
-}
+    <style>
+      @font-face {
+        font-family: 'AnotherTag';
+        src: url('assets/webfonts/letra/letra.ttf') format('truetype'),
+             url('assets/webfonts/letra/letra.otf') format('opentype');
+        font-weight: normal;
+        font-style: normal;
+      }
 
-@media (max-width: 600px) {
-  #one {
-    padding: 40px 20px;   /* menos padding en móvil */
-  }
+      body {
+        font-family: 'AnotherTag', sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #ffffff;
+        height: 100%;
+      }
 
-  .beat-card {
-    max-width: 100%;      /* ocupa todo el ancho disponible */
-    margin: 10px 0;
-  }
+      /* Barra superior */
+      #topnav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: #181818;
+        padding: 15px 0;
+        z-index: 1000;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      }
 
-  .beat-card img {
-    height: 150px;        /* más pequeño en móviles */
-  }
+      #topnav ul {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
 
-  .beat-card h3 {
-    font-size: 1em;       /* reduce tamaño texto */
-  }
+      #topnav a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1.1em;
+        letter-spacing: 1px;
+        transition: color 0.3s;
+      }
 
-  .beat-card .button {
-    padding: 6px 12px;    /* botones más compactos */
-    font-size: 0.9em;
-  }
-}      
-        
-        </style>
-	</head>
-	<body class="is-preload">
+      #topnav a:hover,
+      #topnav a.active {
+        color: #ff5a5f;
+      }
 
-		<!-- Sidebar -->
-			<section id="sidebar">
-				<div class="inner">
-					<nav>
-						<ul>
-							<li><a href="#intro">Inicio</a></li>
-							<li><a href="#one">Catalogo</a></li>
-							<li><a href="#two">Contacta y Pedidos</a></li>
-							<li><a href="#three">Social</a></li>
-						</ul>
-					</nav>
-				</div>
-			</section>
+      @media (max-width: 768px) {
+        #topnav {
+          padding: 12px 0;
+        }
+        #topnav ul {
+          gap: 20px;
+        }
+        #topnav a {
+          font-size: 1em;
+        }
+      }
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+      /* Eliminar sidebar */
+      #sidebar {
+        display: none !important;
+      }
 
-				<!-- Intro -->
-					<section id="intro" class="wrapper style1 fullscreen fade-up">
-						<div class="inner">
-							<h1>Prod Ela </h1>
-							<p>Página oficial de compra de beats </a>.</p>
-                            <a><img src="assets/images/IguanaoNoFondo.png"></a>
-							<ul class="actions">
-								<li><a href="#one" class="button scrolly">Catalogo</a></li>
-							</ul>
-						</div>
-					</section>
+      /* Scroll sección por sección */
+      html, body {
+        scroll-behavior: smooth;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+      }
 
-				<!-- One -->
-					<section id="one" class="wrapper style2 spotlights">
-						  <div class="beat-card">
-        <a><img src="assets/images/grafiti.png" alt="Beat 1"></a>
-        <div class="content">
+      #wrapper {
+        scroll-snap-type: y mandatory;
+        overflow-y: scroll;
+        height: 100vh;
+      }
+
+      #wrapper > section {
+        scroll-snap-align: start;
+        min-height: 100vh;
+        padding: 80px 20px 20px; /* espacio para la barra superior */
+      }
+
+      /* Colores */
+      #intro {
+        background: #2b1b47 !important; /* oscuro */
+      }
+      #wrapper section:not(#intro),
+      #footer {
+        background: #4a3380 !important; /* más claro */
+      }
+
+      /* Beat cards */
+      .beat-card {
+        background: #1e1e1e;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 15px 8px rgba(0,0,0,0.2);
+        transition: transform 0.2s;
+        margin: 20px auto;
+        max-width: 500px;
+      }
+
+      .beat-card img {
+        width: 100%;
+        height: 100px;
+        object-fit: cover;
+      }
+
+      .beat-card .content {
+        padding: 20px;
+      }
+
+      .beat-card h3 {
+        margin: 0 0 10px;
+        font-size: 1.2em;
+      }
+
+      .beat-card .button {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 8px 15px;
+        background: #ff5a5f;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background 0.2s;
+      }
+
+      .beat-card .button:hover {
+        background: #e04848;
+      }
+
+      /* Contacto / Social con cuadros negros */
+      .contact-cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+      }
+
+      .contact-card {
+        background: #1e1e1e;
+        border-radius: 20px;
+        padding: 40px 30px;
+        width: 300px;
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 25px 25px rgba(0,0,0,0.35);
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      .contact-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0,0,0,0.45);
+      }
+
+      .contact-card h3 {
+        margin-bottom: 20px;
+        font-size: 1.5em;
+        color: #fff;
+      }
+
+      .contact-card .button {
+        display: inline-block;
+        padding: 12px 20px;
+        background: #ff5a5f;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 10px;
+        font-weight: bold;
+        transition: background 0.2s;
+      }
+
+      .contact-card .button:hover {
+        background: #e04848;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Barra superior -->
+    <nav id="topnav">
+      <ul>
+        <li><a href="#intro" class="wrapper style4">Inicio</a></li>
+        <li><a href="#one" class="wrapper style1 fade-up">Catálogo</a></li>
+        <li><a href="#two" class="wrapper style1 fade-up">Pedidos</a></li>
+        <li><a href="#three" class="wrapper style1 fade-up">Social</a></li>
+      </ul>
+    </nav>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+      <!-- Intro -->
+      <section id="intro" class="wrapper style4">
+        <div class="inner">
+          <h1>Prod Ela</h1>
+          <p>Página oficial de compra de beats</p>
+          <a><img src="assets/images/IguanaoNoFondo.png"></a>
+          <ul class="actions">
+            <li><a href="#one" class="button scrolly">Catálogo</a></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- One -->
+      <section id="one" class="wrapper style1 fade-up">
+        <div class="beat-card">
+          <a><img src="assets/images/grafiti.png" alt="Beat 1"></a>
+          <div class="content">
             <h3>[BEAT SWITCH] Yeat + Lifestyle + 2093 Type Beat “PRIME” | Supertrap / Trap Type Beat</h3>
-            <p></p>
             <a href="https://3362937557388.gumroad.com/l/dwkvbo" target="_blank" class="button">Comprar</a>
+          </div>
         </div>
-    </div>
-    <!-- Puedes duplicar más tarjetas según necesites -->
-</section>
+      </section>
 
-<style>
-.beats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 40px 0;
-}
+      <!-- Two -->
+      <section id="two" class="wrapper style1 fade-up">
+        <div class="inner">
+          <h2>BEATS PERSONALIZADOS</h2>
+          <p>Escríbeme directamente a mí y si quieres pídeme un beat personalizado</p>
+          <form action="https://formsubmit.co/aleperezz6900@gmail.com" method="POST">
+            <div class="fields">
+              <div class="field half">
+                <label for="name">Nombre</label>
+                <input type="text" name="name" id="name" required />
+              </div>
+              <div class="field half">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" required />
+              </div>
+              <div class="field">
+                <label for="message">Mensaje</label>
+                <textarea name="message" id="message" rows="5" required></textarea>
+              </div>
+            </div>
+            <ul class="actions">
+              <li><button type="submit" class="button submit">Enviar Mensaje</button></li>
+            </ul>
+          </form>
+        </div>
+      </section>
 
-.contact-section-fullscreen {
-    min-height: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: #5c4b9c !important; /* igual que redes sociales */
-    color: #ffffff;
-    text-align: center;s
-    padding: 70px 20px 120px; /* mismo padding */
-}
-#one .beat-card {
-    margin: 50px auto;
-}
-.beat-card {
-    background: #1e1e1e;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 15px 8px rgba(0,0,0,0.2);
-    transition: transform 0.2s;
-    margin: 20px;          /* espacio entre tarjetas */
-    max-width: 500px;      /* ancho máximo por tarjeta */
-}
-
-.beat-card:hover {
-    transform: translateY(-5px);
-}
-
-.beat-card img {
-    width: 100%;
-    height: 100px;
-    object-fit: cover;
-}
-
-.beat-card .content {
-    padding: 20px;
-}
-
-.beat-card h3 {
-    margin: 0 0 10px;
-    font-size: 1.2em;
-}
-
-.beat-card p {
-    font-size: 0.9em;
-    color: #ccc;
-}
-
-.beat-card .button {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 8px 15px;
-    background: #ff5a5f;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background 0.2s;
-}
-
-.beat-card .button:hover {
-    background: #e04848;
-}
-</style>
-
- <!-- two -->
-					<section id="two" class="wrapper style1 fade-up">
-						<div class="inner">
-							<h2>BEATS PERSONALIZADOS</h2>
-							<p>Escribeme directamente a mí y si quieres pideme un beat personalizado</p>
-							<div class="split style1">
-								<section>
-									<form method="post" action="https://formspree.io/f/xjkepjpl">
-										<div class="fields">
-											<div class="field half">
-												<label for="name">Nombre</label>
-												<input type="text" name="name" id="name" />
-											</div>
-											<div class="field half">
-												<label for="email">Email</label>
-												<input type="text" name="email" id="email" />
-											</div>
-											<div class="field">
-												<label for="message">Mensaje</label>
-												<textarea name="message" id="message" rows="5"></textarea>
-											</div>
-										</div>
-										<ul class="actions">
-											<li><a href="" class="button submit">Enviar Mensaje</a></li>
-										</ul>
-									</form>
-								</section>
-							</div>
-						</div>
-					</section>
-
-
-
-			</div>
-
-	            <!-- Three -->
-				<section id="three" class="wrapper style1 fade-up">
-    <div class="inner">
-        <h2>Redes sociales</h2>
-        <p> 
-            
-        </p>
-        <div class="contact-cards">
+      <!-- Three -->
+      <section id="three" class="wrapper style1 fade-up">
+        <div class="inner">
+          <h2>Redes sociales</h2>
+          <div class="contact-cards">
             <div class="contact-card">
-                <h3>TikTok</h3>
-                <li><a class="icon brands fa-tiktok"><span class="label">Tiktok</span></a></li>
-                <a href="https://www.tiktok.com/@prodela" target="_blank" class="button">prodela</a>
+              <h3>TikTok</h3>
+              <a href="https://www.tiktok.com/@prodela" target="_blank" class="button">prodela</a>
             </div>
             <div class="contact-card">
-                <h3>YouTube</h3>
-                <li><a class="icon brands fa-youtube"><span class="label">Tiktok</span></a></li>
-                <a href="https://www.youtube.com/@ProdElaa" target="_blank" class="button">Prod Ela</a>
+              <h3>YouTube</h3>
+              <a href="https://www.youtube.com/@ProdElaa" target="_blank" class="button">Prod Ela</a>
             </div>
+          </div>
         </div>
+      </section>
     </div>
-</section>
 
-<style>
-/* Sección Contacto pantalla completa */
-.contact-section-fullscreen {
-    min-height: auto; /* ocupa toda la pantalla */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: #5c4b9c !important; /* color morado similar al de abajo */
-    color: #ffffff;
-    text-align: center;
-    padding: 60px 20px 120px;
-}
+    <!-- Footer -->
+    <footer id="footer" class="wrapper style1-alt">
+      <div class="inner">
+        <ul class="menu">
+          <li>&copy; Prod Ela. All rights reserved.</li>
+        </ul>
+      </div>
+    </footer>
 
-#three .inner {
-    max-width: 100% !important;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-/* Título y texto */
-.contact-section-fullscreen h2 {
-    font-size: 2.5em;
-    margin-bottom: 15px;
-}
-
-.contact-section-fullscreen p {
-    margin-bottom: 50px;
-    font-size: 1.1em;
-    color: #ddd;
-}
-
-/* Contenedores de los cuadros */
-.contact-cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center; /* centra horizontalmente */
-    align-items: center;     /* centra verticalmente si hay más de una fila */
-    gap: 40px; /* separación más razonable */
-}
-
-/* Cada tarjeta */
-.contact-card {
-    background: #1e1e1e;
-    border-radius: 20px;
-    padding: 40px 30px;
-    width: 400px;  /* más compacto */
-    height: 260px; /* ajusta la altura */
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 25px 25px rgba(0,0,0,0.35);
-    transition: transform 0.2s, box-shadow 0.2s;
-    gap: 40px;
-    width: 100%;
-
-}
-
-.contact-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 24px rgba(0,0,0,0.45);
-}
-
-.contact-card h3 {
-    margin-bottom: 20px;
-    font-size: 1.5em;
-}
-
-.contact-card .button {
-    display: inline-block;
-    padding: 14px 14px;
-    background: #9b2d31;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 14px;
-    font-weight: bold;
-    transition: background 0.2s;
-    font-size: 1em;
-}
-
-.contact-card .button:hover {
-    background: #000000;
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-    .contact-card {
-        width: 70%;
-    }
-}
-
-@media (max-width: 600px) {
-    .contact-card {
-        width: 90%;
-    }
-}
-</style>
-
-		<!-- Footer -->
-			<footer id="footer" class="wrapper style1-alt">
-				<div class="inner">
-					<ul class="menu">
-						<li>&copy; Untitled. All rights reserved by Prod Ela.</li>
-					</ul>
-				</div>
-                <style>
-                    #footer .inner {
-    max-width: 70% !important; /* elimina el ancho fijo de la plantilla */
-    width: 70%;
-    text-align: center;         /* centra el contenido */
-}
-#footer .menu {
-    list-style: none; /* quita viñetas */
-    padding: 50;
-    margin: 80;
-}
-                </style>
-			</footer>
-
-
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-
-	</body>
-
-    
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
 </html>
