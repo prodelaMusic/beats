@@ -9,6 +9,7 @@
     <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
     <style>
+
       @font-face {
         font-family: 'AnotherTag';
         src: url('assets/webfonts/letra/letra.ttf') format('truetype'),
@@ -49,16 +50,15 @@
 
       #topnav a {
         color: #fff;
-        text-decoration: none !important; /* quitar subrayado */
+        text-decoration: none !important;
         font-weight: bold;
         font-size: 1.1em;
         letter-spacing: 1px;
         transition: color 0.3s;
       }
 
-      #topnav a:hover,
       #topnav a.active {
-        color: #ff5a5f;
+        color: #ff5a5f; /* rojo cuando está activo */
       }
 
       @media (max-width: 768px) {
@@ -71,11 +71,6 @@
         #topnav a {
           font-size: 1em;
         }
-      }
-
-      /* Eliminar sidebar */
-      #sidebar {
-        display: none !important;
       }
 
       /* Scroll sección por sección */
@@ -95,16 +90,17 @@
       #wrapper > section {
         scroll-snap-align: start;
         min-height: 100vh;
-        padding: 80px 20px 20px; /* espacio para la barra superior */
+        padding: 100px 20px 20px;
+        scroll-margin-top: 80px; /* para no tapar con la barra */
       }
 
       /* Colores */
       #intro {
-        background: #2b1b47 !important; /* oscuro */
+        background: #2b1b47 !important;
       }
       #wrapper section:not(#intro),
       #footer {
-        background: #4a3380 !important; /* más claro */
+        background: #4a3380 !important;
       }
 
       /* Beat cards */
@@ -149,7 +145,7 @@
         background: #e04848;
       }
 
-      /* Contacto / Social con cuadros negros */
+      /* Contacto / Social */
       .contact-cards {
         display: flex;
         flex-wrap: wrap;
@@ -198,26 +194,36 @@
         background: #e04848;
       }
 
-      /* Ajuste textarea y botón enviar */
+      /* Ajuste formulario */
       #two textarea {
-        min-height: 80px;
-        max-height: 120px;
+        min-height: 70px;
+        max-height: 100px;
         resize: vertical;
       }
 
       #two .button.submit {
+        font-family: 'AnotherTag', sans-serif; /* misma tipografía */
         display: block;
         width: 100%;
         max-width: 250px;
-        margin: 20px auto;
+        margin: 10px auto 0;
         padding: 14px;
         font-size: 1.1em;
         background: #ff5a5f;
         border-radius: 8px;
+        text-align: center;
+        white-space: nowrap;
       }
 
       #two .button.submit:hover {
         background: #e04848;
+      }
+
+      /* Quitar puntitos del botón catálogo inicio */
+      #intro .actions {
+        list-style: none;
+        padding: 0;
+        margin: 20px 0 0 0;
       }
     </style>
   </head>
@@ -239,10 +245,7 @@
         <div class="inner">
           <h1>Prod Ela</h1>
           <p>Página oficial de compra de beats</p>
-          <a><img src="assets/images/IguanaoNoFondo.png"></a>
-          <ul class="actions">
-            <li><a href="#one" class="button scrolly">Catálogo</a></li>
-          </ul>
+          <b><img src="assets/images/IguanaoNoFondo.png"></b>
         </div>
       </section>
 
@@ -277,9 +280,9 @@
                 <textarea name="message" id="message" required></textarea>
               </div>
             </div>
-            <ul class="actions">
-              <li><button type="submit" class="button submit">Enviar Mensaje</button></li>
-            </ul>
+            <div class="actions">
+              <button type="submit" class="button submit">Enviar Mensaje</button>
+            </div>
           </form>
         </div>
       </section>
@@ -319,5 +322,32 @@
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
+
+    <script>
+      const wrapper = document.getElementById("wrapper");
+      const sections = document.querySelectorAll("#wrapper > section");
+      const navLinks = document.querySelectorAll("#topnav a");
+
+      function setActiveLink() {
+        let index = sections.length;
+        while (--index && wrapper.scrollTop + 200 < sections[index].offsetTop) {}
+        navLinks.forEach(link => link.classList.remove("active"));
+        navLinks[index].classList.add("active");
+      }
+
+      // Detecta scroll en el wrapper (no en window)
+      wrapper.addEventListener("scroll", setActiveLink);
+
+      // Detecta clic en los enlaces
+      navLinks.forEach(link => {
+        link.addEventListener("click", function () {
+          navLinks.forEach(l => l.classList.remove("active"));
+          this.classList.add("active");
+        });
+      });
+
+      // Estado inicial
+      setActiveLink();
+    </script>
   </body>
 </html>
