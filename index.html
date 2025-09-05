@@ -9,7 +9,6 @@
     <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
     <style>
-
       @font-face {
         font-family: 'AnotherTag';
         src: url('assets/webfonts/letra/letra.ttf') format('truetype'),
@@ -90,8 +89,21 @@
       #wrapper > section {
         scroll-snap-align: start;
         min-height: 100vh;
-        padding: 100px 20px 20px;
+        padding: 100px 20px 20px; /* espacio en PC */
         scroll-margin-top: 80px; /* para no tapar con la barra */
+      }
+
+      /* Ajuste en móvil: menos hueco arriba */
+      @media (max-width: 768px) {
+        #wrapper > section {
+          padding: 70px 15px 15px;
+        }
+        #two {
+          padding-top: 60px !important;
+        }
+        #two .actions {
+          margin-bottom: 40px; /* asegura que el botón no se corte */
+        }
       }
 
       /* Colores */
