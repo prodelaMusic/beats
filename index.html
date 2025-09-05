@@ -49,7 +49,7 @@
 
       #topnav a {
         color: #fff;
-        text-decoration: none;
+        text-decoration: none !important; /* quitar subrayado */
         font-weight: bold;
         font-size: 1.1em;
         letter-spacing: 1px;
@@ -197,16 +197,38 @@
       .contact-card .button:hover {
         background: #e04848;
       }
+
+      /* Ajuste textarea y botón enviar */
+      #two textarea {
+        min-height: 80px;
+        max-height: 120px;
+        resize: vertical;
+      }
+
+      #two .button.submit {
+        display: block;
+        width: 100%;
+        max-width: 250px;
+        margin: 20px auto;
+        padding: 14px;
+        font-size: 1.1em;
+        background: #ff5a5f;
+        border-radius: 8px;
+      }
+
+      #two .button.submit:hover {
+        background: #e04848;
+      }
     </style>
   </head>
   <body>
     <!-- Barra superior -->
     <nav id="topnav">
       <ul>
-        <li><a href="#intro" class="wrapper style4">Inicio</a></li>
-        <li><a href="#one" class="wrapper style1 fade-up">Catálogo</a></li>
-        <li><a href="#two" class="wrapper style1 fade-up">Pedidos</a></li>
-        <li><a href="#three" class="wrapper style1 fade-up">Social</a></li>
+        <li><a href="#intro">Inicio</a></li>
+        <li><a href="#one">Catálogo</a></li>
+        <li><a href="#two">Pedidos</a></li>
+        <li><a href="#three">Social</a></li>
       </ul>
     </nav>
 
@@ -252,7 +274,7 @@
               </div>
               <div class="field">
                 <label for="message">Mensaje</label>
-                <textarea name="message" id="message" rows="5" required></textarea>
+                <textarea name="message" id="message" required></textarea>
               </div>
             </div>
             <ul class="actions">
