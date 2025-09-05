@@ -114,8 +114,18 @@ body {
 }
 
 #one {
-    padding: 50px;         /* margen morado arriba, abajo, izquierda y derecha */
-    background: #5c4b9c;
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #5c4b9c !important; /* igual que redes sociales */
+    color: #ffffff;
+    text-align: center;
+    padding: 60px 20px 120px; /* mismo padding */
+}
+#one .beat-card {
+    margin: 20px auto;
 }
 .beat-card {
     background: #1e1e1e;
@@ -124,7 +134,7 @@ body {
     box-shadow: 0 15px 8px rgba(0,0,0,0.2);
     transition: transform 0.2s;
     margin: 20px;          /* espacio entre tarjetas */
-    max-width: 50px;      /* ancho máximo por tarjeta */
+    max-width: 500px;      /* ancho máximo por tarjeta */
 }
 
 .beat-card:hover {
