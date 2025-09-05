@@ -23,6 +23,42 @@
 body {
   font-family: 'AnotherTag', sans-serif;
 }
+  /* Ajustes responsive */
+@media (max-width: 1024px) {
+  #one {
+    padding: 100px 40px;  /* menos padding en tablets */
+  }
+
+  .beat-card {
+    max-width: 90%;       /* que no sea tan ancha */
+    margin: 20px auto;    /* centrada */
+  }
+}
+
+@media (max-width: 600px) {
+  #one {
+    padding: 40px 20px;   /* menos padding en móvil */
+  }
+
+  .beat-card {
+    max-width: 100%;      /* ocupa todo el ancho disponible */
+    margin: 10px 0;
+  }
+
+  .beat-card img {
+    height: 150px;        /* más pequeño en móviles */
+  }
+
+  .beat-card h3 {
+    font-size: 1em;       /* reduce tamaño texto */
+  }
+
+  .beat-card .button {
+    padding: 6px 12px;    /* botones más compactos */
+    font-size: 0.9em;
+  }
+}      
+        
         </style>
 	</head>
 	<body class="is-preload">
