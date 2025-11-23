@@ -1,14 +1,18 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-    <title>BUY BEATS</title>
+    <title>Prod Ela - HOME OF EXCLUSIVE BEATS</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="icon" type="image/jpeg" href="assets/images/Iguanao.jpg">
-    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="icon" type="image/jpeg" href="assets/images/Iguanao.jpg"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
+    <link rel="stylesheet" href="assets/css/main.css" /> 
     <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
+    <script src="https://www.paypal.com/sdk/js?client-id=AZmpLq8Z4dInSvKGfb6PGJvaTGPkqFC6I1ssPOgDE9T5IQtBLs3ZOz7jm-YP6lRhbrcheDJAxlGVxtWj&currency=USD"></script>
+
     <style>
+      /* --- ESTILOS CSS INCLUIDOS PARA VISUALIZACIÓN --- */
       @font-face {
         font-family: 'AnotherTag';
         src: url('assets/webfonts/letra/letra.ttf') format('truetype'),
@@ -16,483 +20,1221 @@
         font-weight: normal;
         font-style: normal;
       }
-
-      :root{ --navH: 80px; }
-
-      body {
-        font-family: 'AnotherTag', sans-serif;
-        margin: 0;
-        padding: 0;
-        color: #ffffff;
-        height: 100%;
+      
+      :root { 
+        --navH: 60px;
+        --playerH: 60px; 
+        --color-main: #FFFFFF; 
+        --color-accent: #3b91fd; 
+        
+        /* --- NUEVA PALETA MORADA (Ajuste para cubrir toda la página) --- */
+        --color-hero-bg: #441865; /* Morado base (Fondo de BODY) */
+        --color-bg-dark: #1e0831; /* Morado muy oscuro (Header, Rows, Footer) */
+        --color-bg-light: #2e0b48; /* Morado oscuro intermedio (Dropdowns, Celdas de Licencia) */ 
+        --color-player: #1C1C1C; /* Oscuro para el reproductor */
+        --color-border: #380d58; /* Borde/Separador de contraste */ 
+        --color-hover: #380d58; /* Hover de filas de catálogo */ 
+        /* ----------------------------------------------------------------- */
       }
 
-      /* Barra superior */
-      #topnav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background: #181818;
-        padding: 15px 0;
-        z-index: 1000;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      /* --- GENERAL --- */
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
+        margin: 0; padding: 0; color: var(--color-main); 
+        background: var(--color-hero-bg); /* Fondo Morado para toda la página */
+        min-height: 100vh; padding-bottom: var(--playerH); overflow-y: scroll;
+      }
+      a { text-decoration: none; color: var(--color-main); transition: color 0.2s; }
+      a:hover { color: var(--color-accent); }
+      section { padding: 40px 20px; max-width: 1000px; margin: 0 auto; }
+
+      .button, .add-to-cart-btn-row { 
+        padding: 6px 14px; background: none; color: var(--color-main) !important; 
+        border: 1px solid var(--color-border); border-radius: 4px; font-weight: 500; 
+        transition: background 0.2s, border-color 0.2s; text-transform: uppercase; 
+        font-size: 0.75em; cursor: pointer; 
+      }
+      .button.primary { background: var(--color-accent); border-color: var(--color-accent); color: white !important;}
+      .button.primary:hover { background: #3074d0; }
+
+      /* --- NAVEGACIÓN --- */
+      #topnav { 
+        position: sticky; top: 0; left: 0; width: 100%; 
+        background: var(--color-bg-dark); /* Morado oscuro para la barra */
+        backdrop-filter: blur(5px); 
+        height: var(--navH); display: flex; justify-content: space-between; 
+        align-items: center; padding: 0 30px; z-index: 1000; 
+        border-bottom: 1px solid #1c1c1c00; transition: border-bottom 0.3s;
+      }
+      #topnav.scrolled { border-bottom: 1px solid var(--color-border); }
+
+      .logo { display: flex; align-items: center; font-size: 1.5em; font-weight: bold; color: var(--color-main); }
+      .logo img { height: 40px; margin-right: 10px; }
+      .logo span { font-family: 'AnotherTag', cursive; }
+      
+      #topnav ul { display: flex; gap: 30px; margin: 0; padding: 0; list-style: none; }
+      #topnav a { font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; padding: 5px 0; }
+      #topnav a.active { color: var(--color-accent); border-bottom: 2px solid var(--color-accent); }
+      
+      .nav-icons-right { display: flex; align-items: center; gap: 15px; }
+
+      .login-avatar { width: 30px; height: 30px; border-radius: 50%; background: #444; display: flex; align-items: center; justify-content: center; color: var(--color-main); font-size: 0.8em; cursor: pointer; border: 1px solid transparent; transition: border-color 0.2s; }
+      
+      /* --- Mini Cart Dropdown (Ajuste para columnas) --- */
+      .nav-cart-container { position: relative; }
+      .cart-icon { cursor: pointer; color: var(--color-main); font-size: 1.2em; padding: 5px; transition: color 0.2s; }
+      #cart-dropdown {
+          position: absolute; right: 0; top: var(--navH); width: 350px; 
+          background: var(--color-bg-light); 
+          border: 1px solid var(--color-border); 
+          border-top: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5); z-index: 999; 
+          padding: 20px; display: none; border-radius: 0 0 8px 8px;
+      }
+      .cart-count { position: absolute; top: 0; right: 0; background: red; color: white; border-radius: 50%; padding: 0 5px; font-size: 0.7em; }
+      
+      /* NUEVO CSS: Habilita el scroll dentro de la lista de ítems para que el carrito se expanda controladamente */
+      .cart-item-list {
+          max-height: 300px; /* Altura máxima razonable */
+          overflow-y: auto; /* Habilitar scroll si hay muchos ítems */
+      }
+      
+      .cart-item-list li {
+          /* Eliminamos display: flex para que el contenedor use el ancho completo */
+          display: block; 
+          padding: 10px 0; 
+          border-bottom: 1px solid var(--color-border); /* Usamos la variable de borde para consistencia */
+      }
+      .cart-item-info {
+          /* Estructura en columnas/bloques */
+          display: flex;
+          align-items: center;
+          gap: 10px; 
+          margin-bottom: 5px;
+      }
+      .cart-item-details {
+          display: flex;
+          flex-direction: column; /* Coloca nombre y licencia en pila */
+          flex-grow: 1;
+          min-width: 0; /* Permite que el texto se trunque si es necesario */
+      }
+      .cart-item-details span {
+          white-space: nowrap; 
+          overflow: hidden; 
+          text-overflow: ellipsis; 
+          line-height: 1.3;
+      }
+      .cart-item-price { 
+          color: var(--color-accent); 
+          font-weight: 600; 
+          text-align: right; 
+          margin-left: auto; /* Empuja el precio a la derecha */
+      }
+      .cart-item-bottom {
+          display: flex;
+          justify-content: flex-end; /* Alinea el botón de eliminar a la derecha */
+          align-items: center;
+          padding-left: 40px; /* Alinea con el texto después de la imagen */
+      }
+      .remove-item-btn {
+          background: none; border: none; color: #777; cursor: pointer; font-size: 1.1em;
+          transition: color 0.2s; padding: 0; line-height: 1; margin-left: 10px;
+      }
+      .remove-item-btn:hover { color: red; }
+
+
+      /* --- HERO SECTION --- */
+      #hero-section {
+          background-image: url('assets/images/portada_beats.jpg'); 
+          background-size: cover; background-position: center 20%; height: 80vh; 
+          display: flex; flex-direction: column; justify-content: center; 
+          align-items: center; text-align: center; position: relative; 
+          overflow: hidden; user-select: none; pointer-events: none;
+      }
+      #hero-section::before {
+          content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+          /* Ajustar el degradado para que se fusione con el nuevo fondo del body */
+          background: linear-gradient(to top, 
+                                      var(--color-hero-bg) 0%, /* Morado del body */
+                                      rgba(46, 10, 71, 0.6) 70%, 
+                                      rgba(46, 10, 71, 0.8) 100%); 
+          z-index: 1;
+      }
+      .hero-content { z-index: 2; max-width: 800px; padding: 0 20px; pointer-events: auto; }
+      
+      /* Contenedor de búsqueda CENTRADO */
+      #hero-search-container {
+        width: 100%; max-width: 600px; margin: 0 auto; position: relative;
+        z-index: 5; display: flex; 
+      }
+      #hero-search-input {
+        width: 100%; padding: 18px 20px 18px 20px; 
+        background: var(--color-bg-light);
+        border: 2px solid var(--color-accent);
+        border-radius: 0 8px 8px 0; 
+        color: var(--color-main); font-size: 1.1em; outline: none; transition: all 0.2s; border-left: none; 
+      }
+      #hero-search-icon-wrapper {
+        background: var(--color-accent); 
+        padding: 0 15px; display: flex; align-items: center;
+        justify-content: center; border-radius: 8px 0 0 8px; 
+      }
+      #hero-search-container i.fa-search {
+        color: var(--color-main); font-size: 1.1em; z-index: 6; position: static; transform: none;
+      }
+      
+      /* --- DESPLEGABLE DE BÚSQUEDA --- */
+      #search-dropdown {
+          position: absolute; top: 100%; left: 0; width: 100%; 
+          background: var(--color-bg-light); 
+          border: 1px solid var(--color-accent); border-top: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5); 
+          z-index: 9; padding: 0; display: none; border-radius: 0 0 8px 8px;
+          max-height: 200px; overflow-y: auto; 
+      }
+      .dropdown-beat-item {
+          display: flex; align-items: center; padding: 8px 15px; cursor: pointer; transition: background 0.2s; font-size: 0.9em; 
+      }
+      .dropdown-beat-item:hover { background: var(--color-hover); }
+      .dropdown-beat-item img { width: 30px; height: 30px; object-fit: cover; border-radius: 2px; margin-right: 10px; }
+      .dropdown-beat-info { flex-grow: 1; display: flex; flex-direction: column; }
+      .dropdown-beat-info h5 { margin: 0; font-size: 1em; font-weight: 600; line-height: 1.2; }
+      .dropdown-beat-info p { margin: 0; font-size: 0.75em; color: #999; line-height: 1.2; }
+      .dropdown-beat-price { color: var(--color-accent); font-weight: 600; margin-left: 10px; }
+      .no-results { padding: 10px 15px; color: #777; font-style: italic; font-size: 0.9em; }
+      
+      /* --- CATÁLOGO --- */
+      #beats-section { padding-top: 60px; max-width: 1000px; } 
+      #beats-section h2 { text-align: center; margin-bottom: 40px; font-size: 2.5em; }
+
+      .beats-list-header {
+          display: grid; 
+          /* Anchos ajustados: 40px | TÍTULO (1.5fr) | TIME (75px) | BPM (75px) | OPCIÓN (120px) */
+          grid-template-columns: 40px 1.5fr 75px 75px 120px; 
+          gap: 15px; padding: 15px 20px; margin-bottom: 5px; font-size: 0.85em; 
+          color: #777; border-bottom: 1px solid var(--color-border); text-transform: uppercase;
+      }
+      .beat-item-row { 
+        display: grid; 
+        grid-template-columns: 40px 1.5fr 75px 75px 120px; /* Anchos ajustados */
+        gap: 15px; align-items: center; padding: 10px 20px; 
+        background: var(--color-bg-dark); /* Morado oscuro para las filas */
+        border-bottom: 1px solid #141414; 
+        transition: background 0.2s, border-left 0.2s; cursor: pointer;
+      }
+      .beat-item-row:hover { 
+          background: var(--color-hover); border-left: 3px solid var(--color-accent); 
+      }
+      .beat-item-row.playing-card { 
+          border-left: 5px solid var(--color-accent); background: var(--color-hover); 
+      }
+      
+      /* CENTRADO DE TEXTO EN COLUMNAS TIME Y BPM */
+      .beat-row-time, 
+      .beat-row-bpm,
+      .beats-list-header > span:nth-child(3),
+      .beats-list-header > span:nth-child(4) {
+          text-align: center;
       }
 
-      #topnav ul {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 40px;
-        margin: 0;
-        padding: 0;
-        list-style: none;
+      .beat-row-left { grid-column: 2 / 3; display: flex; align-items: center; gap: 15px; }
+      .beat-row-image { width: 35px; height: 35px; object-fit: cover; border-radius: 4px; }
+      
+      /* Contenedor del ícono de carrito */
+      .beat-row-option {
+          display: flex;
+          justify-content: flex-end; 
+          align-items: center;
+          height: 100%; 
+      }
+      /* Estilo del botón de carrito (Ahora solo Icono) */
+      .add-to-cart-btn-row {
+          padding: 8px 12px; /* Ajuste para que se vea bien solo el ícono */
+          background: var(--color-accent); 
+          border-color: var(--color-accent); 
+          color: white !important;
+          font-size: 1em; /* Ícono más grande */
+          text-transform: none; /* Quitamos uppercase */
+      }
+      .add-to-cart-btn-row:hover {
+           background: #3074d0;
+           border-color: #3074d0;
+      }
+      
+      /* --- MODALS GENERALES --- */
+      #auth-modal, #license-modal {
+          display: none; position: fixed; z-index: 2000; left: 0; top: 0; 
+          width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.8);
+          backdrop-filter: blur(5px);
+      }
+      #auth-modal-content, #license-modal-content {
+          background-color: var(--color-bg-dark); /* Morado oscuro */
+          margin: 15% auto; padding: 30px; 
+          border: 1px solid var(--color-border); width: 90%; max-width: 400px; 
+          border-radius: 8px; position: relative;
+      }
+      .close-modal {
+          position: absolute; top: 10px; right: 20px; color: #aaa; font-size: 28px; 
+          font-weight: bold; cursor: pointer; transition: color 0.2s;
+      }
+      .close-modal:hover, .close-modal:focus { color: #fff; }
+
+      /* --- MODAL DE LICENCIAS --- */
+      .license-option {
+          background: var(--color-bg-light); 
+          padding: 15px; 
+          margin-bottom: 10px; 
+          border-radius: 6px; 
+          cursor: pointer; 
+          border: 2px solid transparent; 
+          transition: all 0.2s;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+      }
+      .license-option:hover {
+          border-color: var(--color-accent);
+          background: #360f58;
+      }
+      .license-option.selected {
+           border-color: var(--color-accent);
+           box-shadow: 0 0 10px rgba(59, 145, 253, 0.5);
+      }
+      .license-info h4 { margin: 0 0 5px 0; font-size: 1.1em; color: var(--color-main); }
+      .license-info p { margin: 0; font-size: 0.8em; color: #bbb; }
+      .license-price { font-weight: bold; font-size: 1.2em; color: var(--color-accent); }
+      
+      /* AJUSTE DEL BOTÓN EN EL MODAL DE LICENCIAS */
+      #add-license-to-cart-btn {
+          width: 100%;
+          margin-top: 20px;
+          font-size: 0.9em; /* Reducir el tamaño de fuente */
+          padding: 10px; /* Reducir el padding */
+          white-space: normal; /* Permitir que el texto salte de línea si es necesario */
+      }
+      
+      /* --- REPRODUCTOR GLOBAL FLOTANTE --- */
+      #global-player {
+          position: fixed; bottom: 0; left: 0; width: 100%; height: var(--playerH); 
+          background: var(--color-player); 
+          border-top: 1px solid var(--color-border); 
+          z-index: 999; display: none; 
+          align-items: center; justify-content: space-between;
+          padding: 0 20px; box-sizing: border-box;
+      }
+      .player-controls { display: flex; align-items: center; gap: 15px; margin-right: 20px; }
+      .player-controls button { 
+          background: none; border: none; 
+          color: var(--color-main); font-size: 1.1em; 
+          cursor: pointer; transition: color 0.2s; padding: 5px; 
+      }
+      .player-controls button:hover { color: var(--color-accent); }
+      #play-pause-btn { font-size: 1.4em; }
+
+      .player-info { display: flex; align-items: center; width: 250px; flex-shrink: 0; }
+      .player-info img { width: 40px; height: 40px; object-fit: cover; border-radius: 4px; margin-right: 10px; transition: opacity 0.5s; }
+      .player-title h4, .player-title p { margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .player-title h4 { font-size: 0.9em; font-weight: 600; }
+      .player-title p { font-size: 0.7em; color: #999; }
+
+      .player-progress-container { flex-grow: 1; display: flex; align-items: center; gap: 10px; max-width: 600px; }
+      .player-time { font-size: 0.75em; color: #999; }
+      .player-progress-bar { 
+          flex-grow: 1; height: 4px; background: #333; border-radius: 2px; 
+          cursor: pointer; position: relative;
+      }
+      .player-progress { 
+          height: 100%; width: 0%; background: var(--color-accent); border-radius: 2px; 
+          transition: width 0.1s linear;
       }
 
-      #topnav a {
-        color: #fff;
-        text-decoration: none !important;
-        font-weight: bold;
-        font-size: 1.1em;
-        letter-spacing: 1px;
-        transition: color 0.3s;
-        position: relative;
-      }
+      .player-volume-container { display: flex; align-items: center; gap: 10px; margin-left: 20px; width: 100px; flex-shrink: 0; }
+      #volume-icon { color: var(--color-main); cursor: pointer; font-size: 1em; }
+      .player-volume-slider { width: 100%; height: 4px; cursor: pointer; }
 
-      #topnav a.active {
-        color: #ff5a5f; /* rojo cuando está activo */
+      /* --- ESTILOS DE LICENCIAS --- */
+      #two { max-width: 1200px; } 
+      #two h2 { 
+          text-align: center; 
+          margin-bottom: 40px; 
+          font-size: 2.5em;
+          text-transform: uppercase; 
+      } 
+      .license-grid {
+          display: grid;
+          grid-template-columns: 2fr repeat(3, 1fr); 
+          gap: 1px; 
+          background: var(--color-border);
+          border-radius: 8px;
+          overflow: hidden;
+          margin-top: 30px;
+          font-size: 0.9em;
       }
-
-      @media (max-width: 768px) {
-        #topnav {
-          padding: 12px 0;
-        }
-        #topnav ul {
-          gap: 20px;
-        }
-        #topnav a {
+      .license-cell {
+          padding: 15px 10px;
+          text-align: center;
+          background: var(--color-bg-light); 
+          border-bottom: 1px solid var(--color-border); 
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
+      /* Fila de Encabezado */
+      .license-cell.header {
+          background: var(--color-bg-dark); 
+          color: var(--color-accent);
+          font-weight: bold;
+          text-transform: uppercase;
           font-size: 1em;
-        }
+          border-bottom: 2px solid var(--color-accent);
       }
+      /* Columna de Características (Primera Columna) */
+      .license-cell.feature {
+          background: #240a3d; 
+          text-align: left;
+          font-weight: 500;
+          justify-content: flex-start;
+          padding-left: 20px;
+      }
+      /* Iconos de Aprobación/Rechazo */
+      .check-icon { color: #4CAF50; font-size: 1.1em; } 
+      .cross-icon { color: #F44336; font-size: 1.1em; } 
+      .info-icon { color: #FFC107; font-size: 1.1em; } 
+      
+      .cell-content { display: flex; align-items: center; gap: 5px; }
 
-      /* Scroll sección por sección */
-      html, body {
-        scroll-behavior: smooth;
-        height: 100%;
-        margin: 0;
-        overflow: hidden;
+      /* === NUEVO CSS: Contacto y Redes en Mayúsculas y Centrado === */
+      #contact-form-section h2, 
+      #three h2 {
+          text-align: center;
+          text-transform: uppercase;
+          margin-bottom: 40px; /* Mantener la separación */
+          font-size: 2.5em; /* Mantener el tamaño */
       }
+      /* ========================================================== */
 
-      #wrapper {
-        scroll-snap-type: y mandatory;
-        overflow-y: scroll;
-        height: 100vh;
+      /* Pie de página de Copyright sutil */
+      #copyright-footer {
+          padding: 15px 20px;
+          text-align: center;
+          font-size: 0.75em; 
+          color: #999; 
+          background: var(--color-bg-dark); 
+          border-top: 1px solid var(--color-border);
       }
-
-      @media (max-width: 768px) {
-        #wrapper { scroll-snap-type: y proximity; }
+      #copyright-footer p {
+          margin: 0;
       }
-
-      #wrapper > section {
-        scroll-snap-align: start;
-        min-height: 100vh;
-        padding: calc(var(--navH) + 20px) 20px 20px;
-        scroll-margin-top: var(--navH);
-      }
-
-      /* Colores */
-      #intro {
-        background: #2b1b47 !important;
-      }
-      #wrapper section:not(#intro),
-      #footer {
-        background: #4a3380 !important;
-      }
-
-      /* ==== Catálogo en cuadrícula ==== */
-      #one {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-        padding: 40px;
-      }
-
-      .beat-card {
-        background: #1e1e1e;
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 15px 8px rgba(0,0,0,0.2);
-        transition: transform 0.2s;
-        max-width: 100%;
-        margin: 0;
-      }
-
-      .beat-card img {
-        width: 100%;
-        height: 150px;
-        object-fit: cover;
-      }
-
-      .beat-card .content {
-        padding: 20px;
-      }
-
-      .beat-card h3 {
-        margin: 0 0 10px;
-        font-size: 1.1em;
-      }
-
-      .beat-card .button {
-        display: inline-block;
-        margin-top: 10px;
-        padding: 8px 15px;
-        background: #ff5a5f;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        font-weight: bold;
-        transition: background 0.2s;
-      }
-
-      .beat-card .button:hover {
-        background: #e04848;
-      }
-
-      /* Contacto / Social */
-      .contact-cards {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        gap: 40px;
-      }
-
-      .contact-card {
-        background: #1e1e1e;
-        border-radius: 20px;
-        padding: 40px 30px;
-        width: 300px;
-        height: 200px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        box-shadow: 0 25px 25px rgba(0,0,0,0.35);
-        transition: transform 0.2s, box-shadow 0.2s;
-      }
-
-      .contact-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 12px 24px rgba(0,0,0,0.45);
-      }
-
-      .contact-card h3 {
-        margin-bottom: 20px;
-        font-size: 1.5em;
-        color: #fff;
-      }
-
-      .contact-card .button {
-        display: inline-block;
-        padding: 12px 20px;
-        background: #ff5a5f;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 10px;
-        font-weight: bold;
-        transition: background 0.2s;
-      }
-
-      .contact-card .button:hover {
-        background: #e04848;
-      }
-
-      /* ===== Ajustes sección #two (Pedidos) ===== */
-      #two .inner {
-        min-height: calc(100vh - (var(--navH) + 40px));
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
-
-      #two .fields { row-gap: 10px; }
-      #two .field.half input { height: 40px; }
-      #two textarea { min-height: 70px; max-height: 90px; resize: vertical; }
-
-      #two .actions {
-        margin-top: 8px;
-        margin-bottom: 24px;
-      }
-      #two .button.submit {
-        font-family: 'AnotherTag', sans-serif;
-        display: block;
-        width: 100%;
-        max-width: 260px;
-        margin: 0 auto;
-        padding: 12px 16px;
-        font-size: 1.05em;
-        background: #ff5a5f;
-        border-radius: 8px;
-        text-align: center;
-        white-space: nowrap;
-      }
-
-      @media (max-width: 768px) {
-        #two .inner {
-          min-height: calc(100vh - (var(--navH) + 20px));
-        }
-        #two { padding-top: calc(var(--navH) + 10px) !important; }
-        #two .fields { row-gap: 8px; }
-        #two textarea { max-height: 80px; }
-      }
-
-      /* Quitar puntitos botón catálogo inicio */
-      #intro .actions {
-        list-style: none;
-        padding: 0;
-        margin: 20px 0 0 0;
-      }
+      
     </style>
   </head>
   <body>
-    <!-- Barra superior -->
-    <nav id="topnav">
-      <ul>
-        <li><a href="#intro">Inicio</a></li>
-        <li><a href="#one">Catálogo</a></li>
-        <li><a href="#two">Pedidos</a></li>
-        <li><a href="#three">Social</a></li>
-      </ul>
-    </nav>
 
-    <!-- Wrapper -->
-    <div id="wrapper">
-      <!-- Intro -->
-      <section id="intro" class="wrapper style4">
-        <div class="inner">
-          <h1>Prod Ela</h1>
-          <p>Página oficial de compra de beats</p>
-          <b><img src="assets/images/IguanaoNoFondo.png"></b>
-          <div class="actions">
-            <a href="#one" class="button scrolly">Catálogo</a>
-          </div>
+    <div id="auth-modal">
+        <div id="auth-modal-content">
+            <span class="close-modal">&times;</span>
+            <h3 id="modal-title" style="text-align: center; margin-bottom: 20px;">Iniciar Sesión</h3>
+            <form id="login-form" style="display: flex; flex-direction: column; gap: 15px;">
+                <input type="email" name="email" placeholder="Correo Electrónico" required style="padding: 12px; background: #161616; border: 1px solid #333; color: white; border-radius: 4px;">
+                <input type="password" name="password" placeholder="Contraseña" required style="padding: 12px; background: #161616; border: 1px solid #333; color: white; border-radius: 4px;">
+                <button type="submit" class="button primary" style="font-size: 1em; padding: 12px 20px;">Iniciar Sesión</button>
+            </form>
+            <p style="text-align: center; margin-top: 20px; color: #999;">
+                ¿No tienes cuenta? <a href="#" id="toggle-register" style="color: var(--color-accent);">Regístrate</a>
+            </p>
+            <form id="register-form" style="display: none; flex-direction: column; gap: 15px;">
+                <input type="email" name="email" placeholder="Correo Electrónico" required style="padding: 12px; background: #161616; border: 1px solid #333; color: white; border-radius: 4px;">
+                <input type="password" name="password" placeholder="Crear Contraseña" required style="padding: 12px; background: #161616; border: 1px solid #333; color: white; border-radius: 4px;">
+                <input type="password" name="confirm-password" placeholder="Confirmar Contraseña" required style="padding: 12px; background: #161616; border: 1px solid #333; color: white; border-radius: 4px;">
+                <button type="submit" class="button primary" style="font-size: 1em; padding: 12px 20px;">Registrarse</button>
+            </form>
+            <p style="text-align: center; margin-top: 20px; color: #999; display: none;" id="back-to-login-container">
+                ¿Ya tienes cuenta? <a href="#" id="toggle-login" style="color: var(--color-accent);">Inicia Sesión</a>
+            </p>
         </div>
-      </section>
+    </div>
+    
+    <div id="license-modal">
+        <div id="license-modal-content">
+            <span class="close-modal" id="close-license-modal">&times;</span>
+            <h3 style="text-align: center; margin-bottom: 20px;">Selecciona la Licencia</h3>
+            <p style="text-align: center; color: #bbb;">Beat: <span id="license-beat-name" style="font-weight: bold; color: var(--color-main);"></span></p>
 
-      <!-- One -->
-      <section id="one" class="wrapper style1 fade-up">
-        <div class="beat-card">
-          <a><img src="assets/images/grafiti.png" alt="Beat 2"></a>
-          <div class="content">
-            <h3>[FREE] Lil Baby Type Beat-"NICE LAW" </h3>
-            <a href="https://payhip.com/b/odMm6" target="_blank" class="button">Comprar</a>
-          </div>
-        </div>
-        <div class="beat-card">
-          <a><img src="assets/images/grafiti.png" alt="Beat 2"></a>
-          <div class="content">
-            <h3>(FREE) Jerk Type Beat "FAST" (prod. JerkTailz)" </h3>
-            <a href="https://payhip.com/b/NCG2j" target="_blank" class="button">Comprar</a>
-          </div>
-        </div>
-        <div class="beat-card">
-          <a><img src="assets/images/grafiti.png" alt="Beat 2"></a>
-          <div class="content">
-            <h3>free gunnr + 2hollis + jerk type beat - DAY" </h3>
-            <a href="https://payhip.com/b/VIxrK" target="_blank" class="button">Comprar</a>
-          </div>
-        </div>
-        <div class="beat-card">
-          <a><img src="assets/images/grafiti.png" alt="Beat 2"></a>
-          <div class="content">
-            <h3>free jerk type beat - Zelda Ocarina of Time </h3>
-            <a href="https://payhip.com/b/zWQ7P" target="_blank" class="button">Comprar</a>
-          </div>
-        </div>
-        <div class="beat-card">
-          <a><img src="assets/images/grafiti.png" alt="Beat 2"></a>
-          <div class="content">
-            <h3>(FREE) Eladio Carrion Type Beat - "VIVIENDO" | Trap Type Beat | Freestyle Type Beat 2025 </h3>
-            <a href="https://payhip.com/b/ybX7g" target="_blank" class="button">Comprar</a>
-          </div>
-        </div>
-        <div class="beat-card">
-          <a><img src="assets/images/grafiti.png" alt="Beat 2"></a>
-          <div class="content">
-            <h3>(FREE) Eladio Carrion Type Beat - "ESFUERZO" | Trap Type Beat | Freestyle Type Beat 2025 </h3>
-            <a href="https://payhip.com/b/sM6LZ" target="_blank" class="button">Comprar</a>
-          </div>
-        </div>
-        <div class="beat-card">
-          <a><img src="assets/images/grafiti.png" alt="Beat 2"></a>
-          <div class="content">
-            <h3>(FREE) Eladio Carrion Type Beat - "ASESINO" | Trap Type Beat | Freestyle Type Beat 2025 </h3>
-            <a href="https://payhip.com/b/6aoHu" target="_blank" class="button">Comprar</a>
-          </div>
-        </div>
-        <div class="beat-card">
-          <a><img src="assets/images/grafiti.png" alt="Beat 2"></a>
-          <div class="content">
-            <h3>(FREE) Eladio Carrion Type Beat - "COMETA" | Trap Type Beat | Freestyle Type Beat 2025 </h3>
-            <a href="https://payhip.com/b/I2W0y" target="_blank" class="button">Comprar</a>
-          </div>
-        </div>
-        <div class="beat-card">
-          <a><img src="assets/images/grafiti.png" alt="Beat 2"></a>
-          <div class="content">
-            <h3>(FREE) Eladio Carrion Type Beat - "ESFERA" | Trap Type Beat | Freestyle Type Beat 2025 </h3>
-            <a href="https://payhip.com/b/Q3tp2" target="_blank" class="button">Comprar</a>
-          </div>
-        </div>
-        <div class="beat-card">
-          <a><img src="assets/images/grafiti.png" alt="Beat 2"></a>
-          <div class="content">
-            <h3>(FREE) Eladio Carrion Type Beat - "SIMPLE" | Trap Type Beat | Freestyle Type Beat 2025 </h3>
-            <a href="https://payhip.com/b/DHpeI" target="_blank" class="button">Comprar</a>
-          </div>
-        </div>
-        <div class="beat-card">
-          <a><img src="assets/images/grafiti.png" alt="Beat 2"></a>
-          <div class="content">
-            <h3>(FREE) Eladio Carrion Type Beat - "BINGO" | Trap Type Beat | Freestyle Type Beat 2025 </h3>
-            <a href="https://payhip.com/b/5aLJc" target="_blank" class="button">Comprar</a>
-          </div>
-        </div>
-        <div class="beat-card">
-          <a><img src="assets/images/grafiti.png" alt="Beat 2"></a>
-          <div class="content">
-            <h3>Big Soto x Neutro Shorty Type Beat - "DAMA" (FREE Tagged) Dark V-Trap Melódico | Prod. by Prod ela </h3>
-            <a href="https://payhip.com/b/NqRUh" target="_blank" class="button">Comprar</a>
-          </div>
-        </div>
-        <div class="beat-card">
-          <a><img src="assets/images/grafiti.png" alt="Beat 2"></a>
-          <div class="content">
-            <h3>Eladio Carrion x Myke Towers Type Beat - "CÓDIGO" (FREE Tagged) Dark Latin Trap | Prod. by Prod ela </h3>
-            <a href="https://payhip.com/b/cu5td" target="_blank" class="button">Comprar</a>
-          </div>
-        </div>
-        <div class="beat-card">
-          <a><img src="assets/images/grafiti.png" alt="Beat 2"></a>
-          <div class="content">
-            <h3>Myke Towers x Eladio Carrion Type Beat - "GÉNESIS" (FREE Tagged) Dark Latin Trap | Prod. ela </h3>
-            <a href="https://payhip.com/b/2cJ4e" target="_blank" class="button">Comprar</a>
-          </div>
-        </div>
-        <div class="beat-card">
-          <a><img src="assets/images/grafiti.png" alt="Beat 2"></a>
-          <div class="content">
-            <h3>Eladio Carrion x Myke Towers Type Beat - "CRIPTA" (FREE Tagged) Hard Dark Trap | Prod. ela </h3>
-            <a href="https://payhip.com/b/suEwZ" target="_blank" class="button">Comprar</a>
-          </div>
-        </div>
-        <div class="beat-card">
-          <a><img src="assets/images/grafiti.png" alt="Beat 2"></a>
-          <div class="content">
-            <h3>Myke Towers x Eladio Carrion Type Beat - "MALICIA" (FREE Tagged) Deep Dark Trap | Prod. ela </h3>
-            <a href="https://payhip.com/b/C2BOI" target="_blank" class="button">Comprar</a>
-          </div>
-        </div>
-      </section>
+            <div class="license-option" data-license="Estándar" data-price="14.00" data-desc="Distribución limitada (5,000 copias)">
+                <div class="license-info">
+                    <h4>Licencia Estándar</h4>
+                    <p>Uso no exclusivo. Archivos MP3/WAV.</p>
+                </div>
+                <span class="license-price">$14.00</span>
+            </div>
+            
+            <div class="license-option" data-license="Premium" data-price="24.00" data-desc="Distribución limitada (10,000 copias)">
+                <div class="license-info">
+                    <h4>Licencia Premium</h4>
+                    <p>Uso no exclusivo. Archivos MP3/WAV + Stems.</p>
+                </div>
+                <span class="license-price">$24.00</span>
+            </div>
 
-      <!-- Two -->
-      <section id="two" class="wrapper style1 fade-up">
-        <div class="inner">
-          <h2>BEATS PERSONALIZADOS</h2>
-          <p>Escríbeme directamente a mí y si quieres pídeme un beat personalizado</p>
-          <form action="https://formsubmit.co/aleperezz6900@gmail.com" method="POST">
-            <div class="fields">
-              <div class="field half">
-                <label for="name">Nombre</label>
-                <input type="text" name="name" id="name" required />
-              </div>
-              <div class="field half">
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" required />
-              </div>
-              <div class="field">
-                <label for="message">Mensaje</label>
-                <textarea name="message" id="message" required></textarea>
-              </div>
+            <div class="license-option" data-license="Exclusiva" data-price="999.00" data-desc="Venta total. Uso y distribución ilimitados.">
+                <div class="license-info">
+                    <h4>Licencia Exclusiva</h4>
+                    <p>Venta total. Consulta precio final con el productor.</p>
+                </div>
+                <span class="license-price" style="color: #FFC107;">Consultar</span>
             </div>
-            <div class="actions">
-              <button type="submit" class="button submit">Enviar Mensaje</button>
-            </div>
-          </form>
-        </div>
-      </section>
 
-      <!-- Three -->
-      <section id="three" class="wrapper style1 fade-up">
-        <div class="inner">
-          <h2>Redes sociales</h2>
-          <div class="contact-cards">
-            <div class="contact-card">
-              <h3>TikTok</h3>
-              <a href="https://www.tiktok.com/@prodela" target="_blank" class="button">prodela</a>
-            </div>
-            <div class="contact-card">
-              <h3>YouTube</h3>
-              <a href="https://www.youtube.com/@ProdElaa" target="_blank" class="button">Prod Ela</a>
-            </div>
-            <div class="contact-card">
-              <h3>YT Beats Jerk</h3>
-              <a href="https://www.youtube.com/@JerkTailz" target="_blank" class="button">JerkTailz</a>
-            </div>
-          </div>
+            <button class="button primary" id="add-license-to-cart-btn" disabled>Añadir al Carrito</button>
         </div>
-      </section>
     </div>
 
-    <!-- Footer -->
-    <footer id="footer" class="wrapper style1-alt">
-      <div class="inner">
-        <ul class="menu">
-          <li>&copy; Prod Ela. All rights reserved.</li>
-        </ul>
+
+    <nav id="topnav">
+      <a href="#hero-section" class="logo">
+        <img src="assets/images/IguanaoNoFondo.png" alt="Prod Ela Logo">
+        <span>Prod Ela</span>
+      </a>
+      <ul>
+        <li><a href="#beats-section" class="active">Catálogo</a></li>
+        <li><a href="#two">Licencias</a></li>
+        <li><a href="#contact-form-section">Contacto</a></li> 
+        <li><a href="#three">Redes</a></li> 
+      </ul>
+      
+      <div class="nav-icons-right">
+        <a href="#" class="login-avatar"><i class="fas fa-user"></i></a>
+
+        <div class="nav-cart-container">
+          <i class="fas fa-shopping-cart cart-icon" title="Ver Carrito"></i>
+          <span class="cart-count" id="cart-item-count">0</span>
+          
+          <div id="cart-dropdown">
+            <h4>Carrito (<span id="dropdown-count">0</span>)</h4>
+            <ul class="cart-item-list" id="cart-items-list" style="list-style: none; padding: 0; margin-bottom: 15px;">
+              <li style="color:#777; padding-top:10px;">El carrito está vacío.</li>
+            </ul>
+            <div class="cart-total" style="border-top: 1px solid #333; padding-top: 15px; margin-bottom: 15px; font-size: 1.1em; font-weight: bold; display: flex; justify-content: space-between;">
+              Total a Pagar: <span id="cart-total-value">$0.00</span>
+            </div>
+            
+            <div id="paypal-button-container-dropdown">
+                <p style="text-align: center; color: #888; font-size: 0.85em;">Añada productos al carrito para ver las opciones de pago.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section id="hero-section">
+        <div class="hero-content">
+            <h1>ENCUENTRA TU PRÓXIMO HIT</h1>
+            <p>Beats Exclusivos de Trap, Reggaeton y R&B. Producido por Prod Ela.</p>
+
+            <div id="hero-search-container">
+                <div id="hero-search-icon-wrapper">
+                    <i class="fas fa-search"></i>
+                </div>
+                <input type="text" id="hero-search-input" placeholder="Escribe el nombre del beat, artista o género..." onkeyup="filterBeats()">
+                
+                <div id="search-dropdown" style="border-radius: 0 0 8px 8px;">
+                </div>
+            </div>
+            
+            <a href="#beats-section" class="button primary" style="margin-top: 30px; font-size: 1em;">Ver Catálogo Completo</a>
+        </div>
+    </section>
+
+    <div id="wrapper">
+
+      <section id="beats-section">
+        <h2 style="text-align: center; margin-bottom: 40px; font-size: 2.5em;">CATÁLOGO</h2> 
+        
+        <div class="beats-list-header">
+            <span class="header-col"></span>
+            <span class="header-col" style="text-align: left;">TÍTULO / ARTISTA</span>
+            <span class="header-col">TIME</span>
+            <span class="header-col">BPM</span>
+            <span class="header-col">OPTION</span>
+        </div>
+        
+        <div class="beats-list" id="beats-list">
+        
+          <div class="beat-item-row" data-id="beat-cautiva-full" data-nombre="Eladio Carrion x Myke Towers Type Beat - CAUTIVA (FREE Tagged) Deep Dark Trap Prod. ela" data-artist="Prod. Ela (Trap/Deep Dark)" data-audio-src="beats/cautiva.mp3" data-image-src="beats_imagenes/cautiva.png" data-time="3:15" data-bpm="140">
+            <button class="play-pause-btn-list" data-action="play-pause"><i class="fas fa-play"></i></button>
+            <div class="beat-row-left">
+                <img class="beat-row-image" src="beats_imagenes/cautiva.png" alt="Portada">
+                <div class="beat-row-info">
+                    <span class="beat-row-title">Eladio Carrion x Myke Towers Type Beat - CAUTIVA (FREE Tagged) Deep Dark Trap Prod. ela</span>
+                    <span class="beat-row-artist">Prod. Ela (Trap/Deep Dark)</span>
+                </div>
+            </div>
+            <span class="beat-row-time">3:15</span>
+            <span class="beat-row-bpm">140</span>
+            <div class="beat-row-option">
+                <button class="add-to-cart-btn-row button primary open-license-modal">
+                    <i class="fas fa-shopping-cart"></i> 
+                </button> 
+            </div>
+          </div>
+          
+        </div>
+      </section>
+      
+      <section id="two">
+          <h2>Información de Licencias</h2> 
+          <p style="text-align: center;">Consulta los términos y precios de las licencias Estándar, Premium y Exclusiva.</p>
+          
+          <div class="license-grid">
+              
+              <div class="license-cell header">Características</div>
+              <div class="license-cell header">Estándar</div>
+              <div class="license-cell header">Premium</div>
+              <div class="license-cell header" style="color: #FFC107;">Exclusiva</div>
+              
+              <div class="license-cell feature">Precio</div>
+              <div class="license-cell" style="font-weight: bold;">$14 USD</div>
+              <div class="license-cell" style="font-weight: bold;">$24 USD</div>
+              <div class="license-cell" style="font-weight: bold; color: #FFC107;"><div class="cell-content">Consultar <i class="fas fa-info-circle info-icon"></i></div></div>
+
+              <div class="license-cell feature">Tipo de Uso</div>
+              <div class="license-cell">No Exclusivo</div>
+              <div class="license-cell">No Exclusivo</div>
+              <div class="license-cell">Exclusivo (Venta Total)</div>
+
+              <div class="license-cell feature">Límite de Distribución (Copias)</div>
+              <div class="license-cell">5,000</div>
+              <div class="license-cell">10,000</div>
+              <div class="license-cell"><i class="fas fa-check-circle check-icon"></i> Ilimitado</div>
+              
+              <div class="license-cell feature">Límite de Reproducciones (Spotify, YT, etc.)</div>
+              <div class="license-cell">50,000</div>
+              <div class="license-cell">100,000</div>
+              <div class="license-cell"><i class="fas fa-check-circle check-icon"></i> Ilimitado</div>
+              
+              <div class="license-cell feature">Ganancia Comercial (Neto)</div>
+              <div class="license-cell">50%</div>
+              <div class="license-cell">100%</div>
+              <div class="license-cell">100%</div>
+
+              <div class="license-cell feature">Crédito al Productor</div>
+              <div class="license-cell"><i class="fas fa-check-circle check-icon"></i> Obligatorio</div>
+              <div class="license-cell"><i class="fas fa-check-circle check-icon"></i> Obligatorio</div>
+              <div class="license-cell"><i class="fas fa-check-circle check-icon"></i> Obligatorio</div>
+              
+              <div class="license-cell feature">Archivos Incluidos</div>
+              <div class="license-cell">MP3/WAV</div>
+              <div class="license-cell">MP3/WAV + Track Outs (Stems)</div>
+              <div class="license-cell">MP3/WAV + Track Outs (Stems)</div>
+
+              <div class="license-cell feature">Uso en Videos Musicales</div>
+              <div class="license-cell"><i class="fas fa-check-circle check-icon"></i> Sí</div>
+              <div class="license-cell"><i class="fas fa-check-circle check-icon"></i> Sí</div>
+              <div class="license-cell"><i class="fas fa-check-circle check-icon"></i> Sí</div>
+              
+              <div class="license-cell feature">Uso en Radio</div>
+              <div class="license-cell"><i class="fas fa-times-circle cross-icon"></i> No</div>
+              <div class="license-cell"><i class="fas fa-check-circle check-icon"></i> Sí</div>
+              <div class="license-cell"><i class="fas fa-check-circle check-icon"></i> Sí</div>
+              
+          </div>
+      </section>
+      
+      <section id="contact-form-section">
+          <h2>Contacto y Beats Personalizados</h2>
+          <p style="text-align: center; color: #bbb;">Utiliza el siguiente formulario para consultas, cotizaciones de licencias exclusivas o para solicitar un beat hecho a medida.</p>
+          <form id="contact-form" style="display: flex; flex-direction: column; gap: 15px;">
+              <input type="text" name="name" placeholder="Tu Nombre" required style="padding: 12px; background: #161616; border: 1px solid #333; color: white; border-radius: 4px;">
+              <input type="email" name="email" placeholder="Tu Correo Electrónico" required style="padding: 12px; background: #161616; border: 1px solid #333; color: white; border-radius: 4px;">
+              <select name="subject" required style="padding: 12px; background: #161616; border: 1px solid #333; color: #ccc; border-radius: 4px;">
+                  <option value="" disabled selected>Selecciona un Asunto</option>
+                  <option value="Consulta General">Consulta General</option>
+                  <option value="Licencia Exclusiva">Cotización Licencia Exclusiva</option>
+                  <option value="Beat Personalizado">Solicitud Beat Personalizado</option>
+              </select>
+              <textarea name="message" placeholder="Tu Mensaje" rows="5" required style="padding: 12px; background: #161616; border: 1px solid #333; color: white; border-radius: 4px; resize: vertical;"></textarea>
+              <button type="submit" class="button primary" style="font-size: 1em; padding: 12px 20px;">Enviar Mensaje</button>
+          </form>
+          <p id="form-message" style="margin-top: 20px; text-align: center; color: var(--color-accent); display: none;">¡Gracias! Tu mensaje ha sido enviado. Te responderemos pronto.</p>
+      </section>
+
+      <section id="three">
+          <h2>Redes</h2> 
+          <p style="text-align: center;">Sígueme y mantente al tanto de los nuevos lanzamientos.</p>
+          <div style="font-size: 2em; margin-top: 20px; display: flex; gap: 20px; justify-content: center;">
+              
+              <a href="https://instagram.com/prod_ela" target="_blank" title="Instagram Prod Ela"><i class="fab fa-instagram"></i></a>
+              
+              <a href="https://www.tiktok.com/@prodela" target="_blank" title="TikTok Prod Ela"><i class="fab fa-tiktok"></i></a>
+
+              <a href="https://www.youtube.com/@ProdElaa" target="_blank" title="YouTube Principal Prod Elaa"><i class="fab fa-youtube"></i></a>
+              
+              <a href="https://www.youtube.com/@JerkTailz" target="_blank" title="YouTube Secundario JerkTailz"><i class="fab fa-youtube-square"></i></a>
+              
+          </div>
+      </section>
+
+    </div> <footer id="global-player">
+      <audio id="audio-player" src="" preload="auto"></audio>
+      <div class="player-controls">
+        <button id="prev-btn" title="Anterior" disabled><i class="fas fa-step-backward"></i></button>
+        <button id="play-pause-btn" title="Reproducir/Pausar"><i class="fas fa-play"></i></button>
+        <button id="next-btn" title="Siguiente" disabled><i class="fas fa-step-forward"></i></button>
+      </div>
+
+      <div class="player-info">
+        <img id="player-img" src="assets/images/Iguanao.jpg" alt="Portada" style="opacity: 0.5;">
+        <div class="player-title">
+          <h4 id="player-beat-name">Selecciona un Beat</h4>
+          <p id="player-artist-name">Prod Ela</p>
+        </div>
+      </div>
+
+      <div class="player-progress-container">
+        <span class="player-time" id="current-time">0:00</span>
+        <div class="player-progress-bar" id="progress-bar">
+          <div class="player-progress" id="progress"></div>
+        </div>
+        <span class="player-time" id="duration">0:00</span>
+      </div>
+      
+      <div class="player-volume-container">
+          <i class="fas fa-volume-up" id="volume-icon"></i>
+          <input type="range" min="0" max="100" value="100" class="player-volume-slider" id="volume-slider">
       </div>
     </footer>
+    
+    <footer id="copyright-footer">
+        <p>&copy; Todos los derechos están reservados por Prod. Ela</p>
+    </footer>
 
-    <!-- Scripts -->
+
     <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/jquery.scrollex.min.js"></script>
-    <script src="assets/js/jquery.scrolly.min.js"></script>
-    <script src="assets/js/browser.min.js"></script>
-    <script src="assets/js/breakpoints.min.js"></script>
-    <script src="assets/js/util.js"></script>
-    <script src="assets/js/main.js"></script>
-
     <script>
-      const wrapper = document.getElementById("wrapper");
-      const sections = document.querySelectorAll("#wrapper > section");
-      const navLinks = document.querySelectorAll("#topnav a");
+        // ==========================================================
+        // 🚀 LÓGICA DE BÚSQUEDA INSTANTÁNEA 
+        // ==========================================================
+        const searchInput = document.getElementById('hero-search-input');
+        const searchDropdown = document.getElementById('search-dropdown');
+        const beatRowsData = Array.from(document.querySelectorAll('.beat-item-row')).map(row => ({
+            id: row.getAttribute('data-id'),
+            nombre: row.getAttribute('data-nombre'),
+            artist: row.getAttribute('data-artist'),
+            audioSrc: row.getAttribute('data-audio-src'),
+            imageSrc: row.getAttribute('data-image-src'),
+            time: row.getAttribute('data-time'), 
+            bpm: row.getAttribute('data-bpm'),   
+            element: row 
+        }));
 
-      function setActiveLink() {
-        let index = sections.length;
-        while (--index && wrapper.scrollTop + 200 < sections[index].offsetTop) {}
-        navLinks.forEach(link => link.classList.remove("active"));
-        navLinks[index].classList.add("active");
-      }
-      wrapper.addEventListener("scroll", setActiveLink);
+        function filterBeats() {
+            const query = searchInput.value.toLowerCase().trim();
+            searchDropdown.innerHTML = '';
 
-      document.querySelectorAll('a[href^="#"]').forEach(a => {
-        a.addEventListener("click", e => {
-          const target = document.querySelector(a.getAttribute("href"));
-          if (target) {
+            if (query.length < 2) {
+                searchDropdown.style.display = 'none';
+                beatRowsData.forEach(data => data.element.classList.remove('hidden'));
+                return;
+            }
+
+            const results = beatRowsData.filter(data => 
+                data.nombre.toLowerCase().includes(query) || 
+                data.artist.toLowerCase().includes(query)
+            );
+            
+            // Ocultar beats que no coinciden en el catálogo
+            document.querySelectorAll('.beat-item-row').forEach(row => row.classList.add('hidden'));
+
+            if (results.length > 0) {
+                results.forEach(data => {
+                    const item = document.createElement('div');
+                    item.className = 'dropdown-beat-item';
+                    item.innerHTML = `
+                        <img src="${data.imageSrc}" alt="Portada">
+                        <div class="dropdown-beat-info">
+                            <h5>${data.nombre}</h5>
+                            <p>${data.artist}</p>
+                        </div>
+                    `; // Precio eliminado del preview
+                    
+                    item.addEventListener('click', () => {
+                        const originalBeatRow = document.querySelector(`.beat-item-row[data-id="${data.id}"]`);
+                        
+                        // Mostrar solo el beat seleccionado
+                        document.querySelectorAll('.beat-item-row').forEach(d => d.classList.add('hidden'));
+                        originalBeatRow.classList.remove('hidden');
+
+                        const navHeight = document.getElementById('topnav').offsetHeight;
+                        window.scrollTo({
+                            top: originalBeatRow.offsetTop - navHeight - 10,
+                            behavior: "smooth"
+                        });
+                        
+                        togglePlay(originalBeatRow);
+
+                        searchDropdown.style.display = 'none';
+                        searchInput.value = data.nombre; 
+                    });
+
+                    searchDropdown.appendChild(item);
+                });
+                searchDropdown.style.display = 'block';
+            } else {
+                searchDropdown.innerHTML = `<div class="no-results">No se encontraron beats que coincidan con "${searchInput.value}".</div>`;
+                searchDropdown.style.display = 'block';
+            }
+        }
+        
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('#hero-search-container')) {
+                searchDropdown.style.display = 'none';
+                if (searchInput.value.trim() === "") {
+                    // Si el campo está vacío y el dropdown se cierra, mostrar todos los beats
+                    document.querySelectorAll('.beat-item-row').forEach(data => data.element.classList.remove('hidden'));
+                }
+            }
+        });
+        
+        searchInput.addEventListener('input', () => {
+            if (searchInput.value.trim() === "") {
+                searchDropdown.style.display = 'none';
+                document.querySelectorAll('.beat-item-row').forEach(data => data.classList.remove('hidden'));
+            }
+        });
+
+
+        // ==========================================================
+        // 🛒 LÓGICA DEL CARRITO
+        // ==========================================================
+        let cart = [];
+        const cartCount = document.getElementById('cart-item-count');
+        const dropdownCount = document.getElementById('dropdown-count');
+        const cartItemsList = document.getElementById('cart-items-list');
+        const cartTotalValue = document.getElementById('cart-total-value');
+        const cartDropdown = document.getElementById('cart-dropdown');
+        const openLicenseModalButtons = document.querySelectorAll('.open-license-modal');
+
+        function calculateTotal() { return cart.reduce((sum, item) => sum + item.precio, 0); }
+        
+        function removeBeat(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartDisplay();
+        }
+
+        function updateCartDisplay() {
+            const total = calculateTotal();
+            cartCount.textContent = cart.length;
+            dropdownCount.textContent = cart.length;
+            cartTotalValue.textContent = `$${total.toFixed(2)}`;
+            
+            cartItemsList.innerHTML = '';
+            if (cart.length === 0) {
+                cartItemsList.innerHTML = '<li style="color:#777; padding-top:10px;">El carrito está vacío.</li>';
+            } else {
+                cart.forEach(item => {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `
+                        <div class="cart-item-info">
+                            <img src="${item.imageSrc}" alt="${item.nombre}" style="width: 30px; height: 30px; object-fit: cover; border-radius: 2px;">
+                            <div class="cart-item-details">
+                                <span style="font-weight: 500;">${item.nombre}</span>
+                                <small style="color:#888; font-size: 0.8em;">Licencia: ${item.licencia}</small>
+                            </div>
+                            <span class="cart-item-price">$${item.precio.toFixed(2)}</span>
+                        </div>
+                        <div class="cart-item-bottom">
+                            <button class="remove-item-btn" data-id="${item.id}" title="Eliminar ${item.nombre}">
+                                <i class="fas fa-times-circle"></i> Eliminar
+                            </button>
+                        </div>
+                    `;
+                    cartItemsList.appendChild(listItem);
+                });
+                
+                document.querySelectorAll('.remove-item-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const itemId = button.getAttribute('data-id');
+                        removeBeat(itemId);
+                    });
+                });
+            }
+            
+            renderPayPalButton(total);
+        }
+
+        function addToCart(beatData, license) {
+            const id = beatData.id + '-' + license.licencia.replace(/\s/g, ''); // ID único por beat y licencia
+            
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                 alert(`"${beatData.nombre}" con licencia ${license.licencia} ya está en el carrito.`);
+                 return;
+            }
+            
+            cart.push({ 
+                id: id, 
+                nombre: beatData.nombre, 
+                precio: license.precio, 
+                imageSrc: beatData.imageSrc,
+                licencia: license.licencia
+            });
+            updateCartDisplay();
+            cartDropdown.style.display = 'block'; // Abrir el dropdown al añadir
+        }
+        
+        // ==========================================================
+        // 📋 LÓGICA DEL MODAL DE LICENCIA
+        // ==========================================================
+        const licenseModal = document.getElementById('license-modal');
+        const closeLicenseModalBtn = document.getElementById('close-license-modal');
+        const licenseBeatNameEl = document.getElementById('license-beat-name');
+        const licenseOptions = document.querySelectorAll('.license-option');
+        const addLicenseToCartBtn = document.getElementById('add-license-to-cart-btn');
+        let currentBeatData = null;
+        let selectedLicense = null;
+        
+        openLicenseModalButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const beatElement = e.target.closest('.beat-item-row');
+                
+                currentBeatData = {
+                    id: beatElement.getAttribute('data-id'),
+                    nombre: beatElement.getAttribute('data-nombre'),
+                    imageSrc: beatElement.getAttribute('data-image-src')
+                };
+                
+                licenseBeatNameEl.textContent = currentBeatData.nombre;
+                
+                // Resetear selección
+                licenseOptions.forEach(opt => opt.classList.remove('selected'));
+                selectedLicense = null;
+                addLicenseToCartBtn.disabled = true;
+                addLicenseToCartBtn.textContent = 'Añadir al Carrito';
+                
+                licenseModal.style.display = 'block';
+            });
+        });
+
+        closeLicenseModalBtn.addEventListener('click', () => { licenseModal.style.display = 'none'; });
+        
+        licenseOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                licenseOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                
+                const licenseName = option.getAttribute('data-license');
+                const licensePrice = parseFloat(option.getAttribute('data-price'));
+                
+                selectedLicense = {
+                    licencia: licenseName,
+                    precio: licensePrice
+                };
+                
+                if (licenseName === 'Exclusiva') {
+                    addLicenseToCartBtn.textContent = 'Contactar para Licencia Exclusiva';
+                    addLicenseToCartBtn.disabled = false;
+                } else {
+                    addLicenseToCartBtn.textContent = `Añadir Licencia ${licenseName} ($${licensePrice.toFixed(2)})`;
+                    addLicenseToCartBtn.disabled = false;
+                }
+            });
+        });
+        
+        addLicenseToCartBtn.addEventListener('click', () => {
+            if (!currentBeatData || !selectedLicense) return;
+            
+            licenseModal.style.display = 'none';
+
+            if (selectedLicense.licencia === 'Exclusiva') {
+                // Redirigir o Scrollear a la sección de contacto para Exclusiva
+                const contactSection = document.getElementById('contact-form-section');
+                const navHeight = document.getElementById('topnav').offsetHeight;
+                window.scrollTo({
+                    top: contactSection.offsetTop - navHeight - 10,
+                    behavior: "smooth"
+                });
+                alert(`Por favor, utiliza el formulario de contacto para solicitar la Licencia Exclusiva del beat "${currentBeatData.nombre}".`);
+            } else {
+                addToCart(currentBeatData, selectedLicense);
+            }
+        });
+
+
+        document.querySelector('.cart-icon').addEventListener('click', (e) => {
+            e.stopPropagation(); 
+            cartDropdown.style.display = cartDropdown.style.display === 'block' ? 'none' : 'block';
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-cart-container')) {
+                cartDropdown.style.display = 'none';
+            }
+            if (e.target == licenseModal) { // Cerrar modal al hacer clic fuera
+                licenseModal.style.display = 'none';
+            }
+        });
+
+        // Lógica de Renderizado del Botón de PayPal (INCLUYE PAGO CON TARJETA)
+        function renderPayPalButton(total) {
+            const container = document.getElementById('paypal-button-container-dropdown'); 
+            if (typeof paypal === 'undefined' || total <= 0) {
+                container.innerHTML = `<p style="text-align: center; color: #888; font-size: 0.85em;">Añada productos al carrito para ver las opciones de pago.</p>`;
+                return;
+            }
+            
+            container.innerHTML = '';
+            
+            // La función paypal.Buttons() por defecto activa el 'Smart Button' 
+            // que incluye la opción de pagar con tarjeta de débito/crédito.
+            paypal.Buttons({
+                style: { layout: 'vertical', color: 'gold' },
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: { value: total.toFixed(2), currency_code: 'USD', breakdown: { item_total: { currency_code: 'USD', value: total.toFixed(2) } } },
+                            items: cart.map(item => ({
+                                name: `${item.nombre} (${item.licencia})`, unit_amount: { currency_code: 'USD', value: item.precio.toFixed(2) }, quantity: 1, category: 'DIGITAL_GOODS'
+                            }))
+                        }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(orderData) {
+                        const transaction = orderData.purchase_units[0].payments.captures[0];
+                        alert(`¡Pago completado! ID de transacción: ${transaction.id}. Revisaremos el pago y enviaremos los beats a tu correo.`);
+                        cart = [];
+                        updateCartDisplay();
+                        // En un sitio real, aquí redireccionarías a una página de éxito
+                        // window.location.href = "success.html"; 
+                    });
+                },
+                onCancel: function (data) { console.log('Transacción cancelada.'); },
+                onError: function (err) { console.error('Error de PayPal:', err); alert('Ocurrió un error con la transacción de PayPal. Intente de nuevo.'); }
+            }).render('#paypal-button-container-dropdown');
+        }
+
+
+        // ==========================================================
+        // 👤 LÓGICA DEL MODAL DE AUTENTICACIÓN
+        // ==========================================================
+        const authModal = document.getElementById('auth-modal');
+        const loginAvatar = document.querySelector('.login-avatar');
+        const closeModalBtn = document.querySelector('.close-modal');
+        const toggleRegister = document.getElementById('toggle-register');
+        const toggleLogin = document.getElementById('toggle-login');
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const modalTitle = document.getElementById('modal-title');
+        const backToLoginContainer = document.getElementById('back-to-login-container');
+        
+        loginAvatar.addEventListener('click', (e) => {
             e.preventDefault();
-            target.scrollIntoView({ behavior: "smooth", block: "start" });
-          }
+            authModal.style.display = 'block';
         });
-      });
-
-      navLinks.forEach(link => {
-        link.addEventListener("click", function () {
-          navLinks.forEach(l => l.classList.remove("active"));
-          this.classList.add("active");
+        closeModalBtn.addEventListener('click', () => { authModal.style.display = 'none'; });
+        window.addEventListener('click', (e) => {
+            if (e.target == authModal) { authModal.style.display = 'none'; }
         });
-      });
+        toggleRegister.addEventListener('click', (e) => {
+            e.preventDefault(); modalTitle.textContent = 'Registrarse'; loginForm.style.display = 'none';
+            e.target.closest('p').style.display = 'none'; registerForm.style.display = 'flex';
+            backToLoginContainer.style.display = 'block';
+        });
+        toggleLogin.addEventListener('click', (e) => {
+            e.preventDefault(); modalTitle.textContent = 'Iniciar Sesión'; registerForm.style.display = 'none';
+            backToLoginContainer.style.display = 'none'; loginForm.style.display = 'flex';
+            document.getElementById('toggle-register').closest('p').style.display = 'block';
+        });
+        loginForm.addEventListener('submit', (e) => { e.preventDefault(); alert('Función de inicio de sesión no implementada. (Simulación)'); });
+        registerForm.addEventListener('submit', (e) => { e.preventDefault(); alert('Función de registro no implementada. (Simulación)'); });
 
-      setActiveLink();
+
+        // ==========================================================
+        // 📧 LÓGICA DEL FORMULARIO DE CONTACTO 
+        // ==========================================================
+        const contactForm = document.getElementById('contact-form');
+        const formMessage = document.getElementById('form-message');
+        
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            contactForm.reset();
+            formMessage.style.display = 'block';
+            setTimeout(() => { formMessage.style.display = 'none'; }, 5000);
+        });
+
+        // ==========================================================
+        // 🎶 LÓGICA DEL REPRODUCTOR GLOBAL 
+        // ==========================================================
+        const audio = document.getElementById('audio-player');
+        const globalPlayer = document.getElementById('global-player');
+        const playPauseBtn = document.getElementById('play-pause-btn');
+        const playerBeatName = document.getElementById('player-beat-name');
+        const playerArtistName = document.getElementById('player-artist-name');
+        const playerImg = document.getElementById('player-img');
+        const progressBar = document.getElementById('progress-bar');
+        const progress = document.getElementById('progress');
+        const currentTimeEl = document.getElementById('current-time');
+        const durationEl = document.getElementById('duration');
+        const volumeSlider = document.getElementById('volume-slider');
+        const volumeIcon = document.getElementById('volume-icon');
+        let currentBeatId = null;
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+        
+        function resetBeatStyles() {
+            document.querySelectorAll('.beat-item-row').forEach(el => {
+                el.classList.remove('playing-card');
+                const btn = el.querySelector('.play-pause-btn-list i');
+                if (btn) btn.className = 'fas fa-play';
+            });
+        }
+
+        function togglePlay(beatElement) {
+            const beatId = beatElement.getAttribute('data-id');
+            const beatName = beatElement.getAttribute('data-nombre');
+            const beatArtist = beatElement.getAttribute('data-artist');
+            const audioSrc = beatElement.getAttribute('data-audio-src');
+            const imageSrc = beatElement.getAttribute('data-image-src');
+            
+            // Si el reproductor estaba oculto, lo mostramos
+            if (globalPlayer.style.display === 'none') {
+                 globalPlayer.style.display = 'flex';
+            }
+
+            if (currentBeatId === beatId && !audio.paused) { audio.pause(); return; }
+            if (currentBeatId === beatId && audio.paused) { audio.play(); return; }
+
+            resetBeatStyles(); 
+            audio.src = audioSrc;
+            currentBeatId = beatId;
+            
+            playerBeatName.textContent = beatName;
+            playerArtistName.textContent = beatArtist || 'Prod Ela'; 
+            playerImg.src = imageSrc;
+            playerImg.style.opacity = 1;
+            globalPlayer.classList.add('active'); 
+
+            audio.play().catch(e => {
+                console.error("Error al reproducir el audio:", e);
+                // Si falla la reproducción (por políticas de autoplay), mantén el reproductor visible pero pausado
+            });
+        }
+
+        document.querySelectorAll('.beat-item-row').forEach(row => {
+            row.addEventListener('click', (e) => {
+                // Previene que el clic en el botón de carrito o de reproducción active la reproducción/modal
+                if (!e.target.closest('.add-to-cart-btn-row') && !e.target.closest('.play-pause-btn-list')) {
+                    togglePlay(e.currentTarget); 
+                }
+            });
+             row.querySelector('.play-pause-btn-list').addEventListener('click', (e) => {
+                e.stopPropagation(); 
+                togglePlay(e.currentTarget.closest('.beat-item-row'));
+             });
+        });
+        
+        playPauseBtn.addEventListener('click', () => {
+            if (!currentBeatId) return;
+            audio.paused ? audio.play() : audio.pause();
+        });
+        
+        audio.addEventListener('play', () => {
+            playPauseBtn.querySelector('i').className = 'fas fa-pause';
+            const currentCard = document.querySelector(`.beat-item-row[data-id="${currentBeatId}"]`);
+            if(currentCard) {
+                currentCard.querySelector('.play-pause-btn-list i').className = 'fas fa-pause';
+                currentCard.classList.add('playing-card');
+            }
+        });
+
+        audio.addEventListener('pause', () => {
+            playPauseBtn.querySelector('i').className = 'fas fa-play';
+            const currentCard = document.querySelector(`.beat-item-row[data-id="${currentBeatId}"]`);
+            if(currentCard) {
+                currentCard.querySelector('.play-pause-btn-list i').className = 'fas fa-play';
+                currentCard.classList.remove('playing-card');
+            }
+        });
+        
+        audio.addEventListener('loadedmetadata', () => { durationEl.textContent = formatTime(audio.duration); });
+        audio.addEventListener('timeupdate', () => {
+            const progressPercent = (audio.currentTime / audio.duration) * 100;
+            progress.style.width = `${progressPercent}%`;
+            currentTimeEl.textContent = formatTime(audio.currentTime);
+        });
+        audio.addEventListener('ended', () => { resetBeatStyles(); playPauseBtn.querySelector('i').className = 'fas fa-play'; });
+        progressBar.addEventListener('click', (e) => {
+            if (!audio.src) return;
+            const clickX = e.offsetX;
+            audio.currentTime = (clickX / progressBar.clientWidth) * audio.duration;
+        });
+
+        let lastVolume = audio.volume; 
+        volumeSlider.addEventListener('input', (e) => {
+            const vol = e.target.value / 100;
+            audio.volume = vol; updateVolumeIcon(vol); lastVolume = vol;
+        });
+        volumeIcon.addEventListener('click', () => {
+            const newVol = audio.volume > 0 ? 0 : (lastVolume > 0.05 ? lastVolume : 0.7); 
+            audio.volume = newVol; volumeSlider.value = newVol * 100; updateVolumeIcon(newVol);
+        });
+        function updateVolumeIcon(vol) {
+            volumeIcon.className = vol === 0 ? 'fas fa-volume-mute' : (vol < 0.5 ? 'fas fa-volume-down' : 'fas fa-volume-up');
+        }
+
+
+        // ==========================================================
+        // LÓGICA DE NAVEGACIÓN Y SCROLL 
+        // ==========================================================
+        const nav = document.getElementById('topnav');
+        const hero = document.getElementById('hero-section');
+        const sections = document.querySelectorAll("section:not(#hero-section)");
+        const navLinks = document.querySelectorAll("#topnav ul a");
+
+        const observer = new IntersectionObserver(([entry]) => {
+            nav.classList.toggle('scrolled', !entry.isIntersecting);
+        }, {
+            rootMargin: `-${nav.offsetHeight}px 0px 0px 0px`
+        });
+        observer.observe(hero);
+
+        function setActiveLink() {
+            let index = 0; 
+            const currentScroll = document.documentElement.scrollTop;
+            
+            sections.forEach((section, i) => {
+                if (section.offsetTop - nav.offsetHeight - 50 <= currentScroll && i < navLinks.length) {
+                    index = i;
+                }
+            });
+
+            navLinks.forEach(link => link.classList.remove("active"));
+            if (index < navLinks.length) {
+                navLinks[index].classList.add("active");
+            }
+        }
+        window.addEventListener("scroll", setActiveLink);
+        
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+          a.addEventListener("click", e => {
+            const target = document.querySelector(a.getAttribute("href"));
+            if (target) {
+              e.preventDefault();
+              const offset = target.offsetTop - nav.offsetHeight;
+              window.scrollTo({ top: offset, behavior: "smooth" });
+              setTimeout(setActiveLink, 600); 
+            }
+          });
+        });
+
+        // Inicializar
+        updateCartDisplay(); 
+        updateVolumeIcon(audio.volume);
+        setActiveLink();
     </script>
   </body>
 </html>
