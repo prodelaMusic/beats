@@ -1036,6 +1036,7 @@
         }
 
         function addToCart(beatData, license) {
+            // El beatData.nombre ya debería venir con el sufijo de licencia
             const id = beatData.id + '-' + license.licencia.replace(/\s/g, ''); 
             
             const existingItem = cart.find(item => item.id === id);
@@ -1047,17 +1048,17 @@
             
             cart.push({ 
                 id: id, 
-                nombre: beatData.nombre, 
+                nombre: beatData.nombre, // Se usa el nombre que ya incluye el sufijo
                 precio: license.precio, 
                 imageSrc: beatData.imageSrc,
-                licencia: license.licencia
+                licencia: license.licencia // Se guarda el tipo de licencia por separado para mostrar
             });
             updateCartDisplay();
             cartDropdown.style.display = 'block'; 
         }
         
         // ==========================================================
-        // 📋 LÓGICA DEL MODAL DE LICENCIA
+        // 📋 LÓGICA DEL MODAL DE LICENCIA (MODIFICADA)
         // ==========================================================
         const licenseModal = document.getElementById('license-modal');
         const closeLicenseModalBtn = document.getElementById('close-license-modal');
@@ -1128,7 +1129,26 @@
                 });
                 alert(`Por favor, utiliza el formulario de contacto para solicitar la Licencia Exclusiva del beat "${currentBeatData.nombre}".`);
             } else {
-                addToCart(currentBeatData, selectedLicense);
+                // ***** INICIO DE LA MODIFICACIÓN (Añadir (Estándar) o (Premium) al nombre) *****
+                let licenseLabel = '';
+                if (selectedLicense.licencia === 'Estándar') {
+                    licenseLabel = ' (Estándar)';
+                } else if (selectedLicense.licencia === 'Premium') {
+                    licenseLabel = ' (Premium)';
+                }
+
+                // Crear el nombre final con la etiqueta de la licencia
+                const finalItemName = currentBeatData.nombre + licenseLabel;
+                
+                // Crear un objeto de datos del beat actualizado con el nombre final
+                const finalBeatData = {
+                    ...currentBeatData, 
+                    nombre: finalItemName // Nombre con el sufijo (Estándar) o (Premium)
+                };
+
+                // Llamar a addToCart con el nombre modificado.
+                addToCart(finalBeatData, selectedLicense);
+                // ***** FIN DE LA MODIFICACIÓN *****
             }
         });
 
@@ -1162,8 +1182,12 @@
                     return actions.order.create({
                         purchase_units: [{
                             amount: { value: total.toFixed(2), currency_code: 'USD', breakdown: { item_total: { currency_code: 'USD', value: total.toFixed(2) } } },
+                            // MODIFICACIÓN: Se usa item.nombre directamente, ya que incluye la licencia.
                             items: cart.map(item => ({
-                                name: `${item.nombre} (${item.licencia})`, unit_amount: { currency_code: 'USD', value: item.precio.toFixed(2) }, quantity: 1, category: 'DIGITAL_GOODS'
+                                name: item.nombre, 
+                                unit_amount: { currency_code: 'USD', value: item.precio.toFixed(2) }, 
+                                quantity: 1, 
+                                category: 'DIGITAL_GOODS'
                             }))
                         }]
                     });
