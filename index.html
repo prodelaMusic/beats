@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="assets/css/main.css" /> 
     <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
-    <script src="https://www.paypal.com/sdk/js?client-id=AZmpLq8Z4dInSvKGfb6PGJvaTGPkqFC6I1ssPOgDE9T5IQtBLs3ZOz7jm-YP6lRhbrcheDJAxlGVxtWj&currency=USD"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AXhnjeWwC9tHtI1GeCkbt-ttxRtT2kkvv1LpkHbdr4zhFp6Evua72XtEpJWj2TLqYxpdyL_rVVCg6VCN&currency=USD"></script>
 
     <style>
       /* --- ESTILOS CSS INCLUIDOS PARA VISUALIZACIÓN --- */
@@ -27,10 +27,10 @@
         --color-main: #FFFFFF; 
         --color-accent: #3b91fd; 
         
-        /* --- NUEVA PALETA MORADA (Ajuste para cubrir toda la página) --- */
+        /* --- NUEVA PALETA MORADA --- */
         --color-hero-bg: #441865; /* Morado base (Fondo de BODY) */
         --color-bg-dark: #1e0831; /* Morado muy oscuro (Header, Rows, Footer) */
-        --color-bg-light: #2e0b48; /* Morado oscuro intermedio (Dropdowns, Celdas de Licencia) */ 
+        --color-bg-light: #2e0b48; /* Morado oscuro intermedio */ 
         --color-player: #1C1C1C; /* Oscuro para el reproductor */
         --color-border: #380d58; /* Borde/Separador de contraste */ 
         --color-hover: #380d58; /* Hover de filas de catálogo */ 
@@ -41,8 +41,10 @@
       body { 
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
         margin: 0; padding: 0; color: var(--color-main); 
-        background: var(--color-hero-bg); /* Fondo Morado para toda la página */
-        min-height: 100vh; padding-bottom: var(--playerH); overflow-y: scroll;
+        background: var(--color-hero-bg); 
+        min-height: 100vh; 
+        padding-bottom: var(--playerH); /* Espacio para el reproductor inferior */
+        overflow-y: scroll;
       }
       a { text-decoration: none; color: var(--color-main); transition: color 0.2s; }
       a:hover { color: var(--color-accent); }
@@ -60,7 +62,7 @@
       /* --- NAVEGACIÓN --- */
       #topnav { 
         position: sticky; top: 0; left: 0; width: 100%; 
-        background: var(--color-bg-dark); /* Morado oscuro para la barra */
+        background: var(--color-bg-dark); 
         backdrop-filter: blur(5px); 
         height: var(--navH); display: flex; justify-content: space-between; 
         align-items: center; padding: 0 30px; z-index: 1000; 
@@ -80,7 +82,7 @@
 
       .login-avatar { width: 30px; height: 30px; border-radius: 50%; background: #444; display: flex; align-items: center; justify-content: center; color: var(--color-main); font-size: 0.8em; cursor: pointer; border: 1px solid transparent; transition: border-color 0.2s; }
       
-      /* --- Mini Cart Dropdown (Ajuste para columnas) --- */
+      /* --- Mini Cart Dropdown --- */
       .nav-cart-container { position: relative; }
       .cart-icon { cursor: pointer; color: var(--color-main); font-size: 1.2em; padding: 5px; transition: color 0.2s; }
       #cart-dropdown {
@@ -92,54 +94,51 @@
       }
       .cart-count { position: absolute; top: 0; right: 0; background: red; color: white; border-radius: 50%; padding: 0 5px; font-size: 0.7em; }
       
-      /* NUEVO CSS: Habilita el scroll dentro de la lista de ítems para que el carrito se expanda controladamente */
+      /* === CSS CORREGIDO PARA LA LISTA DEL CARRITO === */
       .cart-item-list {
-          max-height: 300px; /* Altura máxima razonable */
-          overflow-y: auto; /* Habilitar scroll si hay muchos ítems */
+          max-height: 300px; 
+          overflow-y: auto; 
+          padding: 0;
+          list-style: none; 
       }
-      
-      .cart-item-list li {
-          /* Eliminamos display: flex para que el contenedor use el ancho completo */
-          display: block; 
-          padding: 10px 0; 
-          border-bottom: 1px solid var(--color-border); /* Usamos la variable de borde para consistencia */
+      .cart-item { 
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 10px 0;
+          border-bottom: 1px solid var(--color-border);
+      }
+      .cart-item:last-child {
+          border-bottom: none;
       }
       .cart-item-info {
-          /* Estructura en columnas/bloques */
           display: flex;
-          align-items: center;
-          gap: 10px; 
-          margin-bottom: 5px;
-      }
-      .cart-item-details {
-          display: flex;
-          flex-direction: column; /* Coloca nombre y licencia en pila */
+          flex-direction: column;
           flex-grow: 1;
-          min-width: 0; /* Permite que el texto se trunque si es necesario */
+          margin-right: 10px;
       }
-      .cart-item-details span {
-          white-space: nowrap; 
-          overflow: hidden; 
-          text-overflow: ellipsis; 
-          line-height: 1.3;
+      .cart-item-info strong {
+          font-weight: 600;
+          font-size: 0.9em;
       }
-      .cart-item-price { 
-          color: var(--color-accent); 
-          font-weight: 600; 
-          text-align: right; 
-          margin-left: auto; /* Empuja el precio a la derecha */
-      }
-      .cart-item-bottom {
-          display: flex;
-          justify-content: flex-end; /* Alinea el botón de eliminar a la derecha */
-          align-items: center;
-          padding-left: 40px; /* Alinea con el texto después de la imagen */
+      .cart-item-info span {
+          font-size: 0.75em;
+          color: #bbb;
       }
       .remove-item-btn {
-          background: none; border: none; color: #777; cursor: pointer; font-size: 1.1em;
-          transition: color 0.2s; padding: 0; line-height: 1; margin-left: 10px;
+          background: none;
+          border: none;
+          color: #999;
+          cursor: pointer;
+          font-size: 1.1em;
+          transition: color 0.2s;
+          padding: 5px;
+          line-height: 1;
       }
-      .remove-item-btn:hover { color: red; }
+      .remove-item-btn:hover {
+          color: red;
+      }
+      /* ============================================== */
 
 
       /* --- HERO SECTION --- */
@@ -154,7 +153,7 @@
           content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
           /* Ajustar el degradado para que se fusione con el nuevo fondo del body */
           background: linear-gradient(to top, 
-                                      var(--color-hero-bg) 0%, /* Morado del body */
+                                      var(--color-hero-bg) 0%, 
                                       rgba(46, 10, 71, 0.6) 70%, 
                                       rgba(46, 10, 71, 0.8) 100%); 
           z-index: 1;
@@ -166,17 +165,17 @@
         width: 100%; max-width: 600px; margin: 0 auto; position: relative;
         z-index: 5; display: flex; 
       }
+      #hero-search-icon-wrapper {
+        background: var(--color-accent); 
+        padding: 0 15px; display: flex; align-items: center;
+        justify-content: center; border-radius: 8px 0 0 8px; 
+      }
       #hero-search-input {
         width: 100%; padding: 18px 20px 18px 20px; 
         background: var(--color-bg-light);
         border: 2px solid var(--color-accent);
         border-radius: 0 8px 8px 0; 
         color: var(--color-main); font-size: 1.1em; outline: none; transition: all 0.2s; border-left: none; 
-      }
-      #hero-search-icon-wrapper {
-        background: var(--color-accent); 
-        padding: 0 15px; display: flex; align-items: center;
-        justify-content: center; border-radius: 8px 0 0 8px; 
       }
       #hero-search-container i.fa-search {
         color: var(--color-main); font-size: 1.1em; z-index: 6; position: static; transform: none;
@@ -207,16 +206,15 @@
 
       .beats-list-header {
           display: grid; 
-          /* Anchos ajustados: 40px | TÍTULO (1.5fr) | TIME (75px) | BPM (75px) | OPCIÓN (120px) */
           grid-template-columns: 40px 1.5fr 75px 75px 120px; 
           gap: 15px; padding: 15px 20px; margin-bottom: 5px; font-size: 0.85em; 
           color: #777; border-bottom: 1px solid var(--color-border); text-transform: uppercase;
       }
       .beat-item-row { 
         display: grid; 
-        grid-template-columns: 40px 1.5fr 75px 75px 120px; /* Anchos ajustados */
+        grid-template-columns: 40px 1.5fr 75px 75px 120px; 
         gap: 15px; align-items: center; padding: 10px 20px; 
-        background: var(--color-bg-dark); /* Morado oscuro para las filas */
+        background: var(--color-bg-dark); 
         border-bottom: 1px solid #141414; 
         transition: background 0.2s, border-left 0.2s; cursor: pointer;
       }
@@ -234,9 +232,72 @@
       .beats-list-header > span:nth-child(4) {
           text-align: center;
       }
+      
+      /* Contenedor de la imagen y el botón de play */
+      .beat-row-image-container {
+          position: relative;
+          width: 35px; 
+          height: 35px;
+          border-radius: 4px;
+          overflow: hidden;
+          cursor: pointer;
+          flex-shrink: 0; 
+          grid-column: 1 / 2; 
+      }
+      
+      .beat-row-image-container img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: opacity 0.3s;
+      }
+      
+      /* Botón de play/pause dentro de la imagen */
+      .play-pause-overlay {
+          position: absolute;
+          top: 0; left: 0; right: 0; bottom: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: rgba(0, 0, 0, 0.5);
+          transition: background-color 0.3s;
+          font-size: 1.2em;
+          color: white;
+      }
+      
+      .beat-row-image-container:hover .play-pause-overlay {
+          background-color: rgba(0, 0, 0, 0.3);
+      }
+      
+      .beat-item-row.playing-card .play-pause-overlay {
+          background-color: rgba(0, 0, 0, 0.6); 
+      }
+      
+      /* Contenedor de título/artista */
+      .beat-row-left { 
+          grid-column: 2 / 3; 
+          display: flex; 
+          align-items: center; 
+          gap: 15px; 
+          padding-left: 0; 
+      }
+      
+      .beat-row-info {
+           display: flex; 
+           flex-direction: column;
+      }
+      
+      .beat-row-info .beat-row-title {
+          font-weight: 600;
+          font-size: 0.95em;
+          color: var(--color-main);
+      }
+      
+      .beat-row-info .beat-row-artist {
+          font-size: 0.8em;
+          color: #bbb;
+      }
 
-      .beat-row-left { grid-column: 2 / 3; display: flex; align-items: center; gap: 15px; }
-      .beat-row-image { width: 35px; height: 35px; object-fit: cover; border-radius: 4px; }
       
       /* Contenedor del ícono de carrito */
       .beat-row-option {
@@ -247,12 +308,12 @@
       }
       /* Estilo del botón de carrito (Ahora solo Icono) */
       .add-to-cart-btn-row {
-          padding: 8px 12px; /* Ajuste para que se vea bien solo el ícono */
+          padding: 8px 12px; 
           background: var(--color-accent); 
           border-color: var(--color-accent); 
           color: white !important;
-          font-size: 1em; /* Ícono más grande */
-          text-transform: none; /* Quitamos uppercase */
+          font-size: 1em; 
+          text-transform: none; 
       }
       .add-to-cart-btn-row:hover {
            background: #3074d0;
@@ -266,7 +327,7 @@
           backdrop-filter: blur(5px);
       }
       #auth-modal-content, #license-modal-content {
-          background-color: var(--color-bg-dark); /* Morado oscuro */
+          background-color: var(--color-bg-dark); 
           margin: 15% auto; padding: 30px; 
           border: 1px solid var(--color-border); width: 90%; max-width: 400px; 
           border-radius: 8px; position: relative;
@@ -306,36 +367,68 @@
       #add-license-to-cart-btn {
           width: 100%;
           margin-top: 20px;
-          font-size: 0.9em; /* Reducir el tamaño de fuente */
-          padding: 10px; /* Reducir el padding */
-          white-space: normal; /* Permitir que el texto salte de línea si es necesario */
+          font-size: 0.9em; 
+          padding: 10px; 
+          white-space: normal; 
       }
       
-      /* --- REPRODUCTOR GLOBAL FLOTANTE --- */
+      /* --- REPRODUCTOR GLOBAL FLOTANTE (CAMBIOS APLICADOS) --- */
       #global-player {
-          position: fixed; bottom: 0; left: 0; width: 100%; height: var(--playerH); 
+          position: fixed; 
+          bottom: 0; 
+          top: auto;
+          left: 0; 
+          width: 100%; height: var(--playerH); 
           background: var(--color-player); 
           border-top: 1px solid var(--color-border); 
-          z-index: 999; display: none; 
+          border-bottom: none;
+          z-index: 998; 
+          
+          visibility: hidden; 
+          opacity: 0; 
+          pointer-events: none; 
+          transition: visibility 0s, opacity 0.5s linear; 
+          
+          display: flex; 
           align-items: center; justify-content: space-between;
           padding: 0 20px; box-sizing: border-box;
       }
+      
+      #global-player.active {
+          visibility: visible;
+          opacity: 1;
+          pointer-events: auto;
+      }
+      
       .player-controls { display: flex; align-items: center; gap: 15px; margin-right: 20px; }
       .player-controls button { 
           background: none; border: none; 
           color: var(--color-main); font-size: 1.1em; 
           cursor: pointer; transition: color 0.2s; padding: 5px; 
+          outline: none; 
+          box-shadow: none;
       }
       .player-controls button:hover { color: var(--color-accent); }
       #play-pause-btn { font-size: 1.4em; }
 
-      .player-info { display: flex; align-items: center; width: 250px; flex-shrink: 0; }
+      .player-info { 
+          display: flex; align-items: center; 
+          width: 200px; 
+          flex-shrink: 0; 
+          margin-right: 40px; 
+      }
       .player-info img { width: 40px; height: 40px; object-fit: cover; border-radius: 4px; margin-right: 10px; transition: opacity 0.5s; }
       .player-title h4, .player-title p { margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
       .player-title h4 { font-size: 0.9em; font-weight: 600; }
       .player-title p { font-size: 0.7em; color: #999; }
 
-      .player-progress-container { flex-grow: 1; display: flex; align-items: center; gap: 10px; max-width: 600px; }
+      .player-progress-container { 
+          flex-grow: 1; 
+          display: flex; 
+          align-items: center; 
+          gap: 10px; 
+          max-width: 600px; 
+      }
       .player-time { font-size: 0.75em; color: #999; }
       .player-progress-bar { 
           flex-grow: 1; height: 4px; background: #333; border-radius: 2px; 
@@ -350,67 +443,102 @@
       #volume-icon { color: var(--color-main); cursor: pointer; font-size: 1em; }
       .player-volume-slider { width: 100%; height: 4px; cursor: pointer; }
 
-      /* --- ESTILOS DE LICENCIAS --- */
-      #two { max-width: 1200px; } 
-      #two h2 { 
+      /* --- SECCIÓN DE LICENCIAS Y FAQ/CONTACTO/REDES --- */
+      #two, #faq-section, #contact-form-section, #three { max-width: 1000px; } 
+      
+      #two h2, 
+      #faq-section h2, 
+      #contact-form-section h2, 
+      #three h2 { 
           text-align: center; 
           margin-bottom: 40px; 
           font-size: 2.5em;
           text-transform: uppercase; 
       } 
+
+      /* === ESTILOS DE TABLA DE LICENCIAS RESTAURADOS === */
       .license-grid {
           display: grid;
-          grid-template-columns: 2fr repeat(3, 1fr); 
+          grid-template-columns: 1.5fr 1fr 1fr 1fr; 
           gap: 1px; 
-          background: var(--color-border);
+          background: var(--color-border); 
           border-radius: 8px;
           overflow: hidden;
-          margin-top: 30px;
+      }
+
+      .license-cell {
+          padding: 15px;
+          background: var(--color-bg-dark); 
+          text-align: center;
           font-size: 0.9em;
       }
-      .license-cell {
-          padding: 15px 10px;
-          text-align: center;
-          background: var(--color-bg-light); 
-          border-bottom: 1px solid var(--color-border); 
-          display: flex;
-          align-items: center;
-          justify-content: center;
-      }
-      /* Fila de Encabezado */
+
       .license-cell.header {
-          background: var(--color-bg-dark); 
-          color: var(--color-accent);
+          background: var(--color-bg-light); 
           font-weight: bold;
           text-transform: uppercase;
           font-size: 1em;
-          border-bottom: 2px solid var(--color-accent);
+          color: var(--color-main);
       }
-      /* Columna de Características (Primera Columna) */
+
       .license-cell.feature {
-          background: #240a3d; 
+          background: var(--color-bg-light); 
           text-align: left;
           font-weight: 500;
-          justify-content: flex-start;
-          padding-left: 20px;
+          color: var(--color-main);
       }
-      /* Iconos de Aprobación/Rechazo */
-      .check-icon { color: #4CAF50; font-size: 1.1em; } 
-      .cross-icon { color: #F44336; font-size: 1.1em; } 
-      .info-icon { color: #FFC107; font-size: 1.1em; } 
       
-      .cell-content { display: flex; align-items: center; gap: 5px; }
+      /* Iconos dentro de la tabla */
+      .check-icon { color: #4CAF50; font-size: 1.1em; }
+      .cross-icon { color: #f44336; font-size: 1.1em; }
+      .info-icon { color: #FFC107; margin-left: 5px; cursor: pointer; }
+      .cell-content { display: flex; align-items: center; justify-content: center; }
 
-      /* === NUEVO CSS: Contacto y Redes en Mayúsculas y Centrado === */
-      #contact-form-section h2, 
-      #three h2 {
-          text-align: center;
-          text-transform: uppercase;
-          margin-bottom: 40px; /* Mantener la separación */
-          font-size: 2.5em; /* Mantener el tamaño */
+      /* Ajuste para el color de la celda exclusiva */
+      .license-grid .license-cell:nth-child(4n) {
+          color: #FFC107; 
       }
-      /* ========================================================== */
-
+      /* ======================================================= */
+      
+      /* FAQ STYLES */
+      .faq-item {
+          background: var(--color-bg-dark);
+          margin-bottom: 10px;
+          border-radius: 6px;
+          overflow: hidden;
+          border: 1px solid var(--color-border);
+      }
+      .faq-question {
+          padding: 15px 20px;
+          font-weight: 600;
+          cursor: pointer;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          transition: background 0.2s;
+      }
+      .faq-question:hover {
+          background: var(--color-hover);
+      }
+      .faq-answer {
+          padding: 0 20px;
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+          background: var(--color-bg-light);
+          color: #ccc;
+      }
+      .faq-answer.open {
+          max-height: 500px; 
+          padding: 15px 20px;
+      }
+      .faq-icon {
+          transition: transform 0.3s;
+      }
+      .faq-question.active .faq-icon {
+          transform: rotate(180deg);
+      }
+      
       /* Pie de página de Copyright sutil */
       #copyright-footer {
           padding: 15px 20px;
@@ -458,22 +586,20 @@
             <h3 style="text-align: center; margin-bottom: 20px;">Selecciona la Licencia</h3>
             <p style="text-align: center; color: #bbb;">Beat: <span id="license-beat-name" style="font-weight: bold; color: var(--color-main);"></span></p>
 
-            <div class="license-option" data-license="Estándar" data-price="14.00" data-desc="Distribución limitada (5,000 copias)">
+            <div class="license-option" data-license="Estándar" data-price="0.01" data-desc="Distribución limitada (5,000 copias)">
                 <div class="license-info">
                     <h4>Licencia Estándar</h4>
                     <p>Uso no exclusivo. Archivos MP3/WAV.</p>
                 </div>
-                <span class="license-price">$14.00</span>
+                <span class="license-price">$0.01</span>
             </div>
-            
-            <div class="license-option" data-license="Premium" data-price="24.00" data-desc="Distribución limitada (10,000 copias)">
+            <div class="license-option" data-license="Premium" data-price="0.01" data-desc="Distribución limitada (10,000 copias)">
                 <div class="license-info">
                     <h4>Licencia Premium</h4>
                     <p>Uso no exclusivo. Archivos MP3/WAV + Stems.</p>
                 </div>
-                <span class="license-price">$24.00</span>
+                <span class="license-price">$0.01</span>
             </div>
-
             <div class="license-option" data-license="Exclusiva" data-price="999.00" data-desc="Venta total. Uso y distribución ilimitados.">
                 <div class="license-info">
                     <h4>Licencia Exclusiva</h4>
@@ -496,6 +622,7 @@
         <li><a href="#beats-section" class="active">Catálogo</a></li>
         <li><a href="#two">Licencias</a></li>
         <li><a href="#contact-form-section">Contacto</a></li> 
+        <li><a href="#faq-section">FAQ</a></li> 
         <li><a href="#three">Redes</a></li> 
       </ul>
       
@@ -508,9 +635,9 @@
           
           <div id="cart-dropdown">
             <h4>Carrito (<span id="dropdown-count">0</span>)</h4>
-            <ul class="cart-item-list" id="cart-items-list" style="list-style: none; padding: 0; margin-bottom: 15px;">
+            <div class="cart-item-list" id="cart-items-list" style="list-style: none; padding: 0; margin-bottom: 15px;">
               <li style="color:#777; padding-top:10px;">El carrito está vacío.</li>
-            </ul>
+            </div>
             <div class="cart-total" style="border-top: 1px solid #333; padding-top: 15px; margin-bottom: 15px; font-size: 1.1em; font-weight: bold; display: flex; justify-content: space-between;">
               Total a Pagar: <span id="cart-total-value">$0.00</span>
             </div>
@@ -523,9 +650,39 @@
       </div>
     </nav>
 
+    <div id="global-player">
+      <audio id="audio-player" src="" preload="auto"></audio>
+      <div class="player-controls">
+        <button id="prev-btn" title="Anterior" disabled><i class="fas fa-step-backward"></i></button>
+        <button id="play-pause-btn" title="Reproducir/Pausar"><i class="fas fa-play"></i></button>
+        <button id="next-btn" title="Siguiente" disabled><i class="fas fa-step-forward"></i></button>
+      </div>
+
+      <div class="player-info">
+        <img id="player-img" src="assets/images/Iguanao.jpg" alt="Portada" style="opacity: 0.5;">
+        <div class="player-title">
+          <h4 id="player-beat-name">Selecciona un Beat</h4>
+          <p id="player-artist-name">Prod Ela</p>
+        </div>
+      </div>
+
+      <div class="player-progress-container">
+        <span class="player-time" id="current-time">0:00</span>
+        <div class="player-progress-bar" id="progress-bar">
+          <div class="player-progress" id="progress"></div>
+        </div>
+        <span class="player-time" id="duration">0:00</span>
+      </div>
+      
+      <div class="player-volume-container">
+          <i class="fas fa-volume-up" id="volume-icon"></i>
+          <input type="range" min="0" max="100" value="100" class="player-volume-slider" id="volume-slider">
+      </div>
+    </div>
+    
     <section id="hero-section">
         <div class="hero-content">
-            <h1>ENCUENTRA TU PRÓXIMO HIT</h1>
+            <h1>BEATS PARA ARTISTAS QUE LLEGARÁN AL TOP</h1>
             <p>Beats Exclusivos de Trap, Reggaeton y R&B. Producido por Prod Ela.</p>
 
             <div id="hero-search-container">
@@ -548,7 +705,7 @@
         <h2 style="text-align: center; margin-bottom: 40px; font-size: 2.5em;">CATÁLOGO</h2> 
         
         <div class="beats-list-header">
-            <span class="header-col"></span>
+            <span class="header-col" style="text-align: center;"></span>
             <span class="header-col" style="text-align: left;">TÍTULO / ARTISTA</span>
             <span class="header-col">TIME</span>
             <span class="header-col">BPM</span>
@@ -558,9 +715,13 @@
         <div class="beats-list" id="beats-list">
         
           <div class="beat-item-row" data-id="beat-cautiva-full" data-nombre="Eladio Carrion x Myke Towers Type Beat - CAUTIVA (FREE Tagged) Deep Dark Trap Prod. ela" data-artist="Prod. Ela (Trap/Deep Dark)" data-audio-src="beats/cautiva.mp3" data-image-src="beats_imagenes/cautiva.png" data-time="3:15" data-bpm="140">
-            <button class="play-pause-btn-list" data-action="play-pause"><i class="fas fa-play"></i></button>
-            <div class="beat-row-left">
+            <div class="beat-row-image-container" data-action="play-pause">
                 <img class="beat-row-image" src="beats_imagenes/cautiva.png" alt="Portada">
+                <div class="play-pause-overlay">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+            <div class="beat-row-left">
                 <div class="beat-row-info">
                     <span class="beat-row-title">Eladio Carrion x Myke Towers Type Beat - CAUTIVA (FREE Tagged) Deep Dark Trap Prod. ela</span>
                     <span class="beat-row-artist">Prod. Ela (Trap/Deep Dark)</span>
@@ -590,10 +751,9 @@
               <div class="license-cell header" style="color: #FFC107;">Exclusiva</div>
               
               <div class="license-cell feature">Precio</div>
-              <div class="license-cell" style="font-weight: bold;">$14 USD</div>
-              <div class="license-cell" style="font-weight: bold;">$24 USD</div>
+              <div class="license-cell" style="font-weight: bold;">$0.01 USD</div>
+              <div class="license-cell" style="font-weight: bold;">$0.01 USD</div>
               <div class="license-cell" style="font-weight: bold; color: #FFC107;"><div class="cell-content">Consultar <i class="fas fa-info-circle info-icon"></i></div></div>
-
               <div class="license-cell feature">Tipo de Uso</div>
               <div class="license-cell">No Exclusivo</div>
               <div class="license-cell">No Exclusivo</div>
@@ -602,12 +762,12 @@
               <div class="license-cell feature">Límite de Distribución (Copias)</div>
               <div class="license-cell">5,000</div>
               <div class="license-cell">10,000</div>
-              <div class="license-cell"><i class="fas fa-check-circle check-icon"></i> Ilimitado</div>
+              <div class="license-cell"><div class="cell-content"><i class="fas fa-check-circle check-icon"></i> Ilimitado</div></div>
               
               <div class="license-cell feature">Límite de Reproducciones (Spotify, YT, etc.)</div>
               <div class="license-cell">50,000</div>
               <div class="license-cell">100,000</div>
-              <div class="license-cell"><i class="fas fa-check-circle check-icon"></i> Ilimitado</div>
+              <div class="license-cell"><div class="cell-content"><i class="fas fa-check-circle check-icon"></i> Ilimitado</div></div>
               
               <div class="license-cell feature">Ganancia Comercial (Neto)</div>
               <div class="license-cell">50%</div>
@@ -615,9 +775,9 @@
               <div class="license-cell">100%</div>
 
               <div class="license-cell feature">Crédito al Productor</div>
-              <div class="license-cell"><i class="fas fa-check-circle check-icon"></i> Obligatorio</div>
-              <div class="license-cell"><i class="fas fa-check-circle check-icon"></i> Obligatorio</div>
-              <div class="license-cell"><i class="fas fa-check-circle check-icon"></i> Obligatorio</div>
+              <div class="license-cell"><div class="cell-content"><i class="fas fa-check-circle check-icon"></i> Obligatorio</div></div>
+              <div class="license-cell"><div class="cell-content"><i class="fas fa-check-circle check-icon"></i> Obligatorio</div></div>
+              <div class="license-cell"><div class="cell-content"><i class="fas fa-check-circle check-icon"></i> Obligatorio</div></div>
               
               <div class="license-cell feature">Archivos Incluidos</div>
               <div class="license-cell">MP3/WAV</div>
@@ -625,14 +785,14 @@
               <div class="license-cell">MP3/WAV + Track Outs (Stems)</div>
 
               <div class="license-cell feature">Uso en Videos Musicales</div>
-              <div class="license-cell"><i class="fas fa-check-circle check-icon"></i> Sí</div>
-              <div class="license-cell"><i class="fas fa-check-circle check-icon"></i> Sí</div>
-              <div class="license-cell"><i class="fas fa-check-circle check-icon"></i> Sí</div>
+              <div class="license-cell"><div class="cell-content"><i class="fas fa-check-circle check-icon"></i> Sí</div></div>
+              <div class="license-cell"><div class="cell-content"><i class="fas fa-check-circle check-icon"></i> Sí</div></div>
+              <div class="license-cell"><div class="cell-content"><i class="fas fa-check-circle check-icon"></i> Sí</div></div>
               
               <div class="license-cell feature">Uso en Radio</div>
-              <div class="license-cell"><i class="fas fa-times-circle cross-icon"></i> No</div>
-              <div class="license-cell"><i class="fas fa-check-circle check-icon"></i> Sí</div>
-              <div class="license-cell"><i class="fas fa-check-circle check-icon"></i> Sí</div>
+              <div class="license-cell"><div class="cell-content"><i class="fas fa-times-circle cross-icon"></i> No</div></div>
+              <div class="license-cell"><div class="cell-content"><i class="fas fa-check-circle check-icon"></i> Sí</div></div>
+              <div class="license-cell"><div class="cell-content"><i class="fas fa-check-circle check-icon"></i> Sí</div></div>
               
           </div>
       </section>
@@ -640,7 +800,7 @@
       <section id="contact-form-section">
           <h2>Contacto y Beats Personalizados</h2>
           <p style="text-align: center; color: #bbb;">Utiliza el siguiente formulario para consultas, cotizaciones de licencias exclusivas o para solicitar un beat hecho a medida.</p>
-          <form id="contact-form" style="display: flex; flex-direction: column; gap: 15px;">
+          <form id="contact-form" action="https://formsubmit.co/aleperezz6900@gmail.com" method="POST" style="display: flex; flex-direction: column; gap: 15px;">
               <input type="text" name="name" placeholder="Tu Nombre" required style="padding: 12px; background: #161616; border: 1px solid #333; color: white; border-radius: 4px;">
               <input type="email" name="email" placeholder="Tu Correo Electrónico" required style="padding: 12px; background: #161616; border: 1px solid #333; color: white; border-radius: 4px;">
               <select name="subject" required style="padding: 12px; background: #161616; border: 1px solid #333; color: #ccc; border-radius: 4px;">
@@ -655,6 +815,54 @@
           <p id="form-message" style="margin-top: 20px; text-align: center; color: var(--color-accent); display: none;">¡Gracias! Tu mensaje ha sido enviado. Te responderemos pronto.</p>
       </section>
 
+      <section id="faq-section">
+          <h2>Preguntas Frecuentes (FAQ)</h2>
+          
+          <div class="faq-list">
+              
+              <div class="faq-item">
+                  <div class="faq-question">
+                      <span>¿Cómo obtengo el beat después de la compra?</span>
+                      <i class="fas fa-chevron-down faq-icon"></i>
+                  </div>
+                  <div class="faq-answer">
+                      <p>Inmediatamente después de completar el pago, recibirás un correo electrónico con todos los archivos de alta calidad (.wav, .mp3 y .stems si aplica).</p>
+                  </div>
+              </div>
+
+              <div class="faq-item">
+                  <div class="faq-question">
+                      <span>¿Puedo usar el beat para fines comerciales?</span>
+                      <i class="fas fa-chevron-down faq-icon"></i>
+                  </div>
+                  <div class="faq-answer">
+                      <p>Sí, todas nuestras licencias (excepto la gratuita/demo) permiten el uso comercial, pero con diferentes límites de distribución y reproducciones. Consulta los detalles de cada licencia antes de comprar.</p>
+                  </div>
+              </div>
+
+              <div class="faq-item">
+                  <div class="faq-question">
+                      <span>¿Tengo que dar créditos al productor?</span>
+                      <i class="fas fa-chevron-down faq-icon"></i>
+                  </div>
+                  <div class="faq-answer">
+                      <p>Sí, es obligatorio dar crédito al productor (Prod Ela) en todas las plataformas donde se publique el tema: "Beat by Prod Ela".</p>
+                  </div>
+              </div>
+
+              <div class="faq-item">
+                  <div class="faq-question">
+                      <span>¿Qué significa "Tracked Out Stems"?</span>
+                      <i class="fas fa-chevron-down faq-icon"></i>
+                  </div>
+                  <div class="faq-answer">
+                      <p>Son las pistas separadas del beat (ejemplo: bombo, caja, bajo, melodía), lo que te da un control total para la mezcla y masterización profesional de tu canción.</p>
+                  </div>
+              </div>
+
+          </div>
+      </section>
+      
       <section id="three">
           <h2>Redes</h2> 
           <p style="text-align: center;">Sígueme y mantente al tanto de los nuevos lanzamientos.</p>
@@ -671,35 +879,7 @@
           </div>
       </section>
 
-    </div> <footer id="global-player">
-      <audio id="audio-player" src="" preload="auto"></audio>
-      <div class="player-controls">
-        <button id="prev-btn" title="Anterior" disabled><i class="fas fa-step-backward"></i></button>
-        <button id="play-pause-btn" title="Reproducir/Pausar"><i class="fas fa-play"></i></button>
-        <button id="next-btn" title="Siguiente" disabled><i class="fas fa-step-forward"></i></button>
-      </div>
-
-      <div class="player-info">
-        <img id="player-img" src="assets/images/Iguanao.jpg" alt="Portada" style="opacity: 0.5;">
-        <div class="player-title">
-          <h4 id="player-beat-name">Selecciona un Beat</h4>
-          <p id="player-artist-name">Prod Ela</p>
-        </div>
-      </div>
-
-      <div class="player-progress-container">
-        <span class="player-time" id="current-time">0:00</span>
-        <div class="player-progress-bar" id="progress-bar">
-          <div class="player-progress" id="progress"></div>
-        </div>
-        <span class="player-time" id="duration">0:00</span>
-      </div>
-      
-      <div class="player-volume-container">
-          <i class="fas fa-volume-up" id="volume-icon"></i>
-          <input type="range" min="0" max="100" value="100" class="player-volume-slider" id="volume-slider">
-      </div>
-    </footer>
+    </div> 
     
     <footer id="copyright-footer">
         <p>&copy; Todos los derechos están reservados por Prod. Ela</p>
@@ -739,7 +919,6 @@
                 data.artist.toLowerCase().includes(query)
             );
             
-            // Ocultar beats que no coinciden en el catálogo
             document.querySelectorAll('.beat-item-row').forEach(row => row.classList.add('hidden'));
 
             if (results.length > 0) {
@@ -752,12 +931,11 @@
                             <h5>${data.nombre}</h5>
                             <p>${data.artist}</p>
                         </div>
-                    `; // Precio eliminado del preview
+                    `; 
                     
                     item.addEventListener('click', () => {
                         const originalBeatRow = document.querySelector(`.beat-item-row[data-id="${data.id}"]`);
                         
-                        // Mostrar solo el beat seleccionado
                         document.querySelectorAll('.beat-item-row').forEach(d => d.classList.add('hidden'));
                         originalBeatRow.classList.remove('hidden');
 
@@ -767,6 +945,7 @@
                             behavior: "smooth"
                         });
                         
+                        // NOTA: Se llama a togglePlay en la fila completa, la lógica interna manejará la reproducción.
                         togglePlay(originalBeatRow);
 
                         searchDropdown.style.display = 'none';
@@ -786,7 +965,6 @@
             if (!e.target.closest('#hero-search-container')) {
                 searchDropdown.style.display = 'none';
                 if (searchInput.value.trim() === "") {
-                    // Si el campo está vacío y el dropdown se cierra, mostrar todos los beats
                     document.querySelectorAll('.beat-item-row').forEach(data => data.element.classList.remove('hidden'));
                 }
             }
@@ -801,7 +979,7 @@
 
 
         // ==========================================================
-        // 🛒 LÓGICA DEL CARRITO
+        // 🛒 LÓGICA DEL CARRITO 
         // ==========================================================
         let cart = [];
         const cartCount = document.getElementById('cart-item-count');
@@ -824,28 +1002,25 @@
             dropdownCount.textContent = cart.length;
             cartTotalValue.textContent = `$${total.toFixed(2)}`;
             
-            cartItemsList.innerHTML = '';
+            cartItemsList.innerHTML = ''; 
             if (cart.length === 0) {
                 cartItemsList.innerHTML = '<li style="color:#777; padding-top:10px;">El carrito está vacío.</li>';
             } else {
                 cart.forEach(item => {
-                    const listItem = document.createElement('li');
-                    listItem.innerHTML = `
+                    const itemElement = document.createElement('div'); 
+                    itemElement.classList.add('cart-item');
+                    
+                    itemElement.innerHTML = `
+                        <img src="${item.imageSrc}" alt="${item.nombre}" style="width: 30px; height: 30px; object-fit: cover; border-radius: 2px;">
                         <div class="cart-item-info">
-                            <img src="${item.imageSrc}" alt="${item.nombre}" style="width: 30px; height: 30px; object-fit: cover; border-radius: 2px;">
-                            <div class="cart-item-details">
-                                <span style="font-weight: 500;">${item.nombre}</span>
-                                <small style="color:#888; font-size: 0.8em;">Licencia: ${item.licencia}</small>
-                            </div>
-                            <span class="cart-item-price">$${item.precio.toFixed(2)}</span>
+                            <strong>${item.nombre}</strong>
+                            <span>${item.licencia} | $${item.precio.toFixed(2)}</span>
                         </div>
-                        <div class="cart-item-bottom">
-                            <button class="remove-item-btn" data-id="${item.id}" title="Eliminar ${item.nombre}">
-                                <i class="fas fa-times-circle"></i> Eliminar
-                            </button>
-                        </div>
+                        <button class="remove-item-btn" data-id="${item.id}" title="Eliminar ${item.nombre}">
+                            <i class="fas fa-times"></i>
+                        </button>
                     `;
-                    cartItemsList.appendChild(listItem);
+                    cartItemsList.appendChild(itemElement); 
                 });
                 
                 document.querySelectorAll('.remove-item-btn').forEach(button => {
@@ -861,7 +1036,7 @@
         }
 
         function addToCart(beatData, license) {
-            const id = beatData.id + '-' + license.licencia.replace(/\s/g, ''); // ID único por beat y licencia
+            const id = beatData.id + '-' + license.licencia.replace(/\s/g, ''); 
             
             const existingItem = cart.find(item => item.id === id);
             
@@ -878,7 +1053,7 @@
                 licencia: license.licencia
             });
             updateCartDisplay();
-            cartDropdown.style.display = 'block'; // Abrir el dropdown al añadir
+            cartDropdown.style.display = 'block'; 
         }
         
         // ==========================================================
@@ -905,7 +1080,6 @@
                 
                 licenseBeatNameEl.textContent = currentBeatData.nombre;
                 
-                // Resetear selección
                 licenseOptions.forEach(opt => opt.classList.remove('selected'));
                 selectedLicense = null;
                 addLicenseToCartBtn.disabled = true;
@@ -946,7 +1120,6 @@
             licenseModal.style.display = 'none';
 
             if (selectedLicense.licencia === 'Exclusiva') {
-                // Redirigir o Scrollear a la sección de contacto para Exclusiva
                 const contactSection = document.getElementById('contact-form-section');
                 const navHeight = document.getElementById('topnav').offsetHeight;
                 window.scrollTo({
@@ -969,12 +1142,11 @@
             if (!e.target.closest('.nav-cart-container')) {
                 cartDropdown.style.display = 'none';
             }
-            if (e.target == licenseModal) { // Cerrar modal al hacer clic fuera
+            if (e.target == licenseModal) { 
                 licenseModal.style.display = 'none';
             }
         });
 
-        // Lógica de Renderizado del Botón de PayPal (INCLUYE PAGO CON TARJETA)
         function renderPayPalButton(total) {
             const container = document.getElementById('paypal-button-container-dropdown'); 
             if (typeof paypal === 'undefined' || total <= 0) {
@@ -984,8 +1156,6 @@
             
             container.innerHTML = '';
             
-            // La función paypal.Buttons() por defecto activa el 'Smart Button' 
-            // que incluye la opción de pagar con tarjeta de débito/crédito.
             paypal.Buttons({
                 style: { layout: 'vertical', color: 'gold' },
                 createOrder: function(data, actions) {
@@ -1004,8 +1174,6 @@
                         alert(`¡Pago completado! ID de transacción: ${transaction.id}. Revisaremos el pago y enviaremos los beats a tu correo.`);
                         cart = [];
                         updateCartDisplay();
-                        // En un sitio real, aquí redireccionarías a una página de éxito
-                        // window.location.href = "success.html"; 
                     });
                 },
                 onCancel: function (data) { console.log('Transacción cancelada.'); },
@@ -1015,55 +1183,30 @@
 
 
         // ==========================================================
-        // 👤 LÓGICA DEL MODAL DE AUTENTICACIÓN
+        // ❓ LÓGICA DEL FAQ (ACORDEÓN)
         // ==========================================================
-        const authModal = document.getElementById('auth-modal');
-        const loginAvatar = document.querySelector('.login-avatar');
-        const closeModalBtn = document.querySelector('.close-modal');
-        const toggleRegister = document.getElementById('toggle-register');
-        const toggleLogin = document.getElementById('toggle-login');
-        const loginForm = document.getElementById('login-form');
-        const registerForm = document.getElementById('register-form');
-        const modalTitle = document.getElementById('modal-title');
-        const backToLoginContainer = document.getElementById('back-to-login-container');
-        
-        loginAvatar.addEventListener('click', (e) => {
-            e.preventDefault();
-            authModal.style.display = 'block';
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const wasActive = question.classList.contains('active');
+                
+                // Cerrar todos los demás
+                document.querySelectorAll('.faq-question').forEach(q => {
+                    q.classList.remove('active');
+                    q.nextElementSibling.classList.remove('open');
+                });
+
+                // Abrir o cerrar el actual
+                if (!wasActive) {
+                    question.classList.add('active');
+                    answer.classList.add('open');
+                }
+            });
         });
-        closeModalBtn.addEventListener('click', () => { authModal.style.display = 'none'; });
-        window.addEventListener('click', (e) => {
-            if (e.target == authModal) { authModal.style.display = 'none'; }
-        });
-        toggleRegister.addEventListener('click', (e) => {
-            e.preventDefault(); modalTitle.textContent = 'Registrarse'; loginForm.style.display = 'none';
-            e.target.closest('p').style.display = 'none'; registerForm.style.display = 'flex';
-            backToLoginContainer.style.display = 'block';
-        });
-        toggleLogin.addEventListener('click', (e) => {
-            e.preventDefault(); modalTitle.textContent = 'Iniciar Sesión'; registerForm.style.display = 'none';
-            backToLoginContainer.style.display = 'none'; loginForm.style.display = 'flex';
-            document.getElementById('toggle-register').closest('p').style.display = 'block';
-        });
-        loginForm.addEventListener('submit', (e) => { e.preventDefault(); alert('Función de inicio de sesión no implementada. (Simulación)'); });
-        registerForm.addEventListener('submit', (e) => { e.preventDefault(); alert('Función de registro no implementada. (Simulación)'); });
 
 
         // ==========================================================
-        // 📧 LÓGICA DEL FORMULARIO DE CONTACTO 
-        // ==========================================================
-        const contactForm = document.getElementById('contact-form');
-        const formMessage = document.getElementById('form-message');
-        
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            contactForm.reset();
-            formMessage.style.display = 'block';
-            setTimeout(() => { formMessage.style.display = 'none'; }, 5000);
-        });
-
-        // ==========================================================
-        // 🎶 LÓGICA DEL REPRODUCTOR GLOBAL 
+        // 🎶 LÓGICA DEL REPRODUCTOR GLOBAL (CONFIRMACIÓN DE FUNCIONAMIENTO)
         // ==========================================================
         const audio = document.getElementById('audio-player');
         const globalPlayer = document.getElementById('global-player');
@@ -1088,7 +1231,7 @@
         function resetBeatStyles() {
             document.querySelectorAll('.beat-item-row').forEach(el => {
                 el.classList.remove('playing-card');
-                const btn = el.querySelector('.play-pause-btn-list i');
+                const btn = el.querySelector('.play-pause-overlay i');
                 if (btn) btn.className = 'fas fa-play';
             });
         }
@@ -1100,13 +1243,19 @@
             const audioSrc = beatElement.getAttribute('data-audio-src');
             const imageSrc = beatElement.getAttribute('data-image-src');
             
-            // Si el reproductor estaba oculto, lo mostramos
-            if (globalPlayer.style.display === 'none') {
-                 globalPlayer.style.display = 'flex';
+            // Muestra el reproductor
+            if (!globalPlayer.classList.contains('active')) {
+                 globalPlayer.classList.add('active'); 
             }
 
-            if (currentBeatId === beatId && !audio.paused) { audio.pause(); return; }
-            if (currentBeatId === beatId && audio.paused) { audio.play(); return; }
+            if (currentBeatId === beatId && !audio.paused) { 
+                audio.pause(); 
+                return; 
+            }
+            if (currentBeatId === beatId && audio.paused) { 
+                audio.play(); 
+                return; 
+            }
 
             resetBeatStyles(); 
             audio.src = audioSrc;
@@ -1116,25 +1265,30 @@
             playerArtistName.textContent = beatArtist || 'Prod Ela'; 
             playerImg.src = imageSrc;
             playerImg.style.opacity = 1;
-            globalPlayer.classList.add('active'); 
 
             audio.play().catch(e => {
-                console.error("Error al reproducir el audio:", e);
-                // Si falla la reproducción (por políticas de autoplay), mantén el reproductor visible pero pausado
+                console.error("Error al reproducir el audio. Puede ser por la ruta o política de autoplay:", e);
+                playPauseBtn.querySelector('i').className = 'fas fa-play'; 
             });
         }
 
         document.querySelectorAll('.beat-item-row').forEach(row => {
+            const imageContainer = row.querySelector('.beat-row-image-container');
+            
+            // Click en la fila (excepto botones de carrito y play)
             row.addEventListener('click', (e) => {
-                // Previene que el clic en el botón de carrito o de reproducción active la reproducción/modal
-                if (!e.target.closest('.add-to-cart-btn-row') && !e.target.closest('.play-pause-btn-list')) {
+                if (!e.target.closest('.add-to-cart-btn-row') && !e.target.closest('.beat-row-image-container')) {
                     togglePlay(e.currentTarget); 
                 }
             });
-             row.querySelector('.play-pause-btn-list').addEventListener('click', (e) => {
-                e.stopPropagation(); 
-                togglePlay(e.currentTarget.closest('.beat-item-row'));
-             });
+            
+            // Click en el contenedor de la imagen (botón de play)
+            if (imageContainer) {
+                 imageContainer.addEventListener('click', (e) => {
+                    e.stopPropagation(); 
+                    togglePlay(e.currentTarget.closest('.beat-item-row'));
+                 });
+            }
         });
         
         playPauseBtn.addEventListener('click', () => {
@@ -1146,7 +1300,8 @@
             playPauseBtn.querySelector('i').className = 'fas fa-pause';
             const currentCard = document.querySelector(`.beat-item-row[data-id="${currentBeatId}"]`);
             if(currentCard) {
-                currentCard.querySelector('.play-pause-btn-list i').className = 'fas fa-pause';
+                const overlayIcon = currentCard.querySelector('.play-pause-overlay i');
+                if (overlayIcon) overlayIcon.className = 'fas fa-pause';
                 currentCard.classList.add('playing-card');
             }
         });
@@ -1155,7 +1310,8 @@
             playPauseBtn.querySelector('i').className = 'fas fa-play';
             const currentCard = document.querySelector(`.beat-item-row[data-id="${currentBeatId}"]`);
             if(currentCard) {
-                currentCard.querySelector('.play-pause-btn-list i').className = 'fas fa-play';
+                const overlayIcon = currentCard.querySelector('.play-pause-overlay i');
+                if (overlayIcon) overlayIcon.className = 'fas fa-play';
                 currentCard.classList.remove('playing-card');
             }
         });
@@ -1166,7 +1322,11 @@
             progress.style.width = `${progressPercent}%`;
             currentTimeEl.textContent = formatTime(audio.currentTime);
         });
-        audio.addEventListener('ended', () => { resetBeatStyles(); playPauseBtn.querySelector('i').className = 'fas fa-play'; });
+        audio.addEventListener('ended', () => { 
+            resetBeatStyles(); 
+            playPauseBtn.querySelector('i').className = 'fas fa-play'; 
+            globalPlayer.classList.remove('active'); // Ocultar al terminar la reproducción
+        });
         progressBar.addEventListener('click', (e) => {
             if (!audio.src) return;
             const clickX = e.offsetX;
@@ -1188,11 +1348,11 @@
 
 
         // ==========================================================
-        // LÓGICA DE NAVEGACIÓN Y SCROLL 
+        // LÓGICA DE NAVEGACIÓN Y SCROLL
         // ==========================================================
         const nav = document.getElementById('topnav');
         const hero = document.getElementById('hero-section');
-        const sections = document.querySelectorAll("section:not(#hero-section)");
+        const sections = document.querySelectorAll("#beats-section, #two, #contact-form-section, #faq-section, #three"); 
         const navLinks = document.querySelectorAll("#topnav ul a");
 
         const observer = new IntersectionObserver(([entry]) => {
@@ -1204,15 +1364,30 @@
 
         function setActiveLink() {
             let index = 0; 
-            const currentScroll = document.documentElement.scrollTop;
+            const currentScroll = window.scrollY; 
+            const navHeight = nav.offsetHeight;
             
+            if (currentScroll === 0) {
+                 navLinks.forEach(link => link.classList.remove("active"));
+                 navLinks[0].classList.add("active");
+                 return;
+            }
+
             sections.forEach((section, i) => {
-                if (section.offsetTop - nav.offsetHeight - 50 <= currentScroll && i < navLinks.length) {
-                    index = i;
+                // Se resta un poco más para activar el link antes de que la sección toque exactamente el tope.
+                if (section.offsetTop - navHeight - 50 <= currentScroll) { 
+                    index = i; 
                 }
             });
 
+             if (currentScroll + window.innerHeight >= document.body.scrollHeight) {
+                 // Si se llega al final de la página (Redes), asegurar que esté activo.
+                index = sections.length - 1; 
+            }
+
+
             navLinks.forEach(link => link.classList.remove("active"));
+            
             if (index < navLinks.length) {
                 navLinks[index].classList.add("active");
             }
